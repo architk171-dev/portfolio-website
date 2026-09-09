@@ -6,9 +6,11 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic quis
-          dolores numquam iusto Ratione earum ducimus autem id iure pariatur
-          dolorum quae maiores.
+          Product Manager with 3+ years across FinTech and AgriTech, owning
+          products from discovery to GTM across payments, growth, and
+          supply-chain automation. Proven track record of launching new
+          products, driving revenue and retention, and shipping AI-led tools
+          end-to-end.
         </p>
       </div>
     </div>

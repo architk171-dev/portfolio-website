@@ -18,6 +18,22 @@ const setLighting = (scene: THREE.Scene) => {
   pointLight.castShadow = true;
   scene.add(pointLight);
 
+  const rimLight = new THREE.PointLight(0xff6ec7, 0, 80, 1.5);
+  rimLight.position.set(-5, 14, -5);
+  scene.add(rimLight);
+
+  const accentLight = new THREE.PointLight(0x7b4dff, 0, 80, 1.5);
+  accentLight.position.set(6, 12, -4);
+  scene.add(accentLight);
+
+  const frontFill = new THREE.PointLight(0xfff5ee, 0, 60, 1.8);
+  frontFill.position.set(0, 13, 9);
+  scene.add(frontFill);
+
+  const topLight = new THREE.PointLight(0xc2a4ff, 0, 60, 1.5);
+  topLight.position.set(0, 18, 0);
+  scene.add(topLight);
+
   new RGBELoader()
     .setPath("/models/")
     .load("char_enviorment.hdr", function (texture) {
@@ -38,12 +54,32 @@ const setLighting = (scene: THREE.Scene) => {
   const ease = "power2.inOut";
   function turnOnLights() {
     gsap.to(scene, {
-      environmentIntensity: 0.64,
+      environmentIntensity: 1.0,
       duration: duration,
       ease: ease,
     });
     gsap.to(directionalLight, {
-      intensity: 1,
+      intensity: 1.5,
+      duration: duration,
+      ease: ease,
+    });
+    gsap.to(rimLight, {
+      intensity: 4,
+      duration: duration,
+      ease: ease,
+    });
+    gsap.to(accentLight, {
+      intensity: 3.5,
+      duration: duration,
+      ease: ease,
+    });
+    gsap.to(frontFill, {
+      intensity: 2.5,
+      duration: duration,
+      ease: ease,
+    });
+    gsap.to(topLight, {
+      intensity: 2.0,
       duration: duration,
       ease: ease,
     });

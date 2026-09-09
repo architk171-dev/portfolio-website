@@ -288,6 +288,15 @@
   font-weight: 600;
   text-transform: uppercase;
 }
+.loading-marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee-scroll 12s linear infinite;
+}
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 .loading-marquee span {
   padding: 0px 50px;
   position: relative;

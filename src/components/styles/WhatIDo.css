@@ -37,14 +37,13 @@
   height: 500px;
   margin-left: 200px;
   position: relative;
-  display: none;
+  display: flex;
 }
 .what-content {
   width: 450px;
-  height: 33%;
+  height: auto;
   min-height: 50%;
   transition: 0.5s;
-  /* border: 0.5px dashed rgba(255, 255, 255, 0.3); */
   position: relative;
   padding: 50px;
   box-sizing: border-box;
@@ -206,7 +205,7 @@
 }
 .what-content-in {
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
 }
 .what-content-in h5 {
   font-weight: 300;
