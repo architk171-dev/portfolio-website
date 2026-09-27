@@ -1,0 +1,235 @@
+.cs-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.cs-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: sticky;
+  top: calc(var(--header-h) + 16px);
+}
+.cs-tab {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  min-height: 64px;
+  padding: 14px 16px;
+  text-align: left;
+  font: inherit;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.cs-tab:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+.cs-tab.is-active {
+  color: var(--text);
+  background: var(--surface-2);
+  border-color: rgba(194, 164, 255, 0.4);
+}
+.cs-tab-num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  padding-top: 3px;
+  color: var(--text-subtle);
+}
+.cs-tab.is-active .cs-tab-num {
+  color: var(--accent);
+}
+.cs-tab-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cs-tab-name {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.cs-tab-short {
+  font-size: var(--fs-meta);
+  color: var(--text-subtle);
+}
+
+.cs-panel {
+  padding: clamp(24px, 3.2vw, 40px);
+  display: grid;
+  gap: 32px;
+  animation: csIn 0.3s ease;
+}
+@keyframes csIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.cs-context {
+  margin: 0 0 8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.cs-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2.125rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.cs-impact {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.cs-impact-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.cs-impact-1 {
+  grid-template-columns: 1fr;
+}
+.cs-impact li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  background: var(--bg);
+}
+.cs-impact-value {
+  font-size: clamp(1.75rem, 1.35rem + 1.2vw, 2.5rem);
+  color: var(--accent);
+  white-space: nowrap;
+}
+.cs-impact-label {
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.cs-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 32px;
+}
+.cs-label {
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+.cs-problem {
+  margin: 0;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text);
+}
+.cs-actions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.cs-actions li {
+  position: relative;
+  padding-left: 22px;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.cs-actions li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.7em;
+  width: 8px;
+  height: 2px;
+  background: var(--accent);
+}
+.cs-footer {
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.cs-chip {
+  font-size: var(--fs-meta);
+  color: var(--text-muted);
+}
+
+@media (max-width: 1024px) {
+  .cs-impact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cs-impact-1 {
+    grid-template-columns: 1fr;
+  }
+  .cs-body {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 860px) {
+  .cs-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .cs-tabs {
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 2px var(--gutter) 6px;
+    scrollbar-width: none;
+  }
+  .cs-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .cs-tab {
+    flex: 0 0 auto;
+    width: auto;
+    min-height: 48px;
+    align-items: center;
+    padding: 10px 16px;
+    border-color: var(--border);
+    border-radius: 999px;
+    scroll-snap-align: start;
+  }
+  .cs-tab-num,
+  .cs-tab-short {
+    display: none;
+  }
+  .cs-tab-name {
+    font-size: var(--fs-small);
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 380px) {
+  .cs-impact li {
+    padding: 16px 14px;
+  }
+}

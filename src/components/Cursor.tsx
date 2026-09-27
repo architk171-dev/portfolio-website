@@ -1,54 +1,51 @@
 import { useEffect, useRef } from "react";
 import "./styles/Cursor.css";
-import gsap from "gsap";
 
 const Cursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    let hover = false;
-    const cursor = cursorRef.current!;
-    const mousePos = { x: 0, y: 0 };
-    const cursorPos = { x: 0, y: 0 };
-    document.addEventListener("mousemove", (e) => {
-      mousePos.x = e.clientX;
-      mousePos.y = e.clientY;
-    });
-    requestAnimationFrame(function loop() {
-      if (!hover) {
-        const delay = 6;
-        cursorPos.x += (mousePos.x - cursorPos.x) / delay;
-        cursorPos.y += (mousePos.y - cursorPos.y) / delay;
-        gsap.to(cursor, { x: cursorPos.x, y: cursorPos.y, duration: 0.1 });
-        // cursor.style.transform = `translate(${cursorPos.x}px, ${cursorPos.y}px)`;
-      }
-      requestAnimationFrame(loop);
-    });
-    document.querySelectorAll("[data-cursor]").forEach((item) => {
-      const element = item as HTMLElement;
-      element.addEventListener("mouseover", (e: MouseEvent) => {
-        const target = e.currentTarget as HTMLElement;
-        const rect = target.getBoundingClientRect();
+    const enabled = window.matchMedia(
+      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)"
+    ).matches;
+    const cursor = cursorRef.current;
+    if (!enabled || !cursor) return;
 
-        if (element.dataset.cursor === "icons") {
-          cursor.classList.add("cursor-icons");
+    const target = { x: -100, y: -100 };
+    const pos = { x: -100, y: -100 };
+    let frame = 0;
 
-          gsap.to(cursor, { x: rect.left, y: rect.top, duration: 0.1 });
-          //   cursor.style.transform = `translate(${rect.left}px,${rect.top}px)`;
-          cursor.style.setProperty("--cursorH", `${rect.height}px`);
-          hover = true;
-        }
-        if (element.dataset.cursor === "disable") {
-          cursor.classList.add("cursor-disable");
-        }
-      });
-      element.addEventListener("mouseout", () => {
-        cursor.classList.remove("cursor-disable", "cursor-icons");
-        hover = false;
-      });
-    });
+    const onMove = (e: MouseEvent) => {
+      target.x = e.clientX;
+      target.y = e.clientY;
+      const el = e.target as HTMLElement | null;
+      cursor.classList.toggle(
+        "cursor-hidden",
+        !!el?.closest("a, button, input, textarea, [role='tab']")
+      );
+    };
+    const onLeave = () => cursor.classList.add("cursor-hidden");
+
+    const loop = () => {
+      pos.x += (target.x - pos.x) / 6;
+      pos.y += (target.y - pos.y) / 6;
+      cursor.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+      frame = requestAnimationFrame(loop);
+    };
+
+    cursor.classList.add("cursor-on");
+    document.addEventListener("mousemove", onMove, { passive: true });
+    document.documentElement.addEventListener("mouseleave", onLeave);
+    frame = requestAnimationFrame(loop);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      document.removeEventListener("mousemove", onMove);
+      document.documentElement.removeEventListener("mouseleave", onLeave);
+    };
   }, []);
 
-  return <div className="cursor-main" ref={cursorRef}></div>;
+  return <div className="cursor-main" ref={cursorRef} aria-hidden="true"></div>;
 };
 
 export default Cursor;

@@ -1,35 +1,71 @@
-// styles in index.css
+import "./styles/TechStack.css";
 
-const tools = [
-  { name: "Figma", category: "Design" },
-  { name: "JIRA", category: "Project Mgmt" },
-  { name: "Confluence", category: "Documentation" },
-  { name: "SQL", category: "Data" },
-  { name: "Python", category: "Analytics" },
-  { name: "Mixpanel", category: "Product Analytics" },
-  { name: "Metabase", category: "BI & Dashboards" },
-  { name: "Google Analytics", category: "Web Analytics" },
-  { name: "n8n", category: "Automation" },
-  { name: "Hotjar", category: "UX Research" },
-  { name: "Notion", category: "Productivity" },
-  { name: "Miro", category: "Collaboration" },
+const groups = [
+  {
+    title: "Product",
+    items: [
+      "Product strategy",
+      "Product discovery",
+      "Roadmap & prioritisation",
+      "User research",
+      "PRD writing",
+      "GTM strategy",
+      "Stakeholder management",
+    ],
+  },
+  {
+    title: "Growth & commerce",
+    items: [
+      "Funnel / CRO",
+      "Checkout optimisation",
+      "A/B testing & experimentation",
+      "Marketplace & supply growth",
+      "Partner / API onboarding",
+      "B2B API distribution",
+      "Post-purchase CX & CSAT",
+    ],
+  },
+  {
+    title: "Tools & technical",
+    items: [
+      "SQL",
+      "Python",
+      "REST APIs",
+      "Metabase",
+      "Mixpanel",
+      "Google Analytics",
+      "Figma",
+      "JIRA",
+      "Confluence",
+      "n8n",
+    ],
+  },
 ];
 
 const TechStack = () => {
   return (
-    <div className="techstack-section section-container">
-      <h2>
-        My <span>Toolkit</span>
-      </h2>
-      <div className="techstack-grid">
-        {tools.map((tool, i) => (
-          <div className="techstack-card" key={i}>
-            <h4>{tool.name}</h4>
-            <p>{tool.category}</p>
+    <section className="section skills-section" id="skills" aria-labelledby="skills-title">
+      <div className="section-head" data-reveal>
+        <p className="eyebrow">Skills</p>
+        <h2 className="section-title" id="skills-title">
+          Product sense, <em>backed by data and tooling.</em>
+        </h2>
+      </div>
+      <div className="skills-grid">
+        {groups.map((g) => (
+          <div className="skills-group" key={g.title} data-reveal>
+            <h3>{g.title}</h3>
+            <ul className="chip-list">
+              {g.items.map((item) => (
+                <li className="chip" key={item}>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

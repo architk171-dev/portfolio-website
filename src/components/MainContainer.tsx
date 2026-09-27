@@ -1,21 +1,45 @@
-import { lazy, PropsWithChildren, Suspense, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import About from "./About";
 import Career from "./Career";
+import CaseStudies from "./CaseStudies";
 import Contact from "./Contact";
 import Cursor from "./Cursor";
+import Experience from "./Experience";
+import HowIWork from "./HowIWork";
+import ImpactMetrics from "./ImpactMetrics";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
 import SocialIcons from "./SocialIcons";
+import TechStack from "./TechStack";
 import WhatIDo from "./WhatIDo";
-import Work from "./Work";
 import setSplitText from "./utils/splitText";
 
-const TechStack = lazy(() => import("./TechStack"));
+const useScrollReveal = () => {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const root = document.documentElement;
+    root.classList.add("reveal-ready");
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        }),
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+    );
+    document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
+    return () => {
+      observer.disconnect();
+      root.classList.remove("reveal-ready");
+    };
+  }, []);
+};
 
 const MainContainer = ({ children }: PropsWithChildren) => {
-  const [isDesktopView, setIsDesktopView] = useState<boolean>(
-    window.innerWidth > 1024
-  );
+  const [isDesktopView, setIsDesktopView] = useState<boolean>(window.innerWidth > 1024);
+  useScrollReveal();
 
   useEffect(() => {
     const resizeHandler = () => {
@@ -24,13 +48,14 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
-    return () => {
-      window.removeEventListener("resize", resizeHandler);
-    };
+    return () => window.removeEventListener("resize", resizeHandler);
   }, [isDesktopView]);
 
   return (
     <div className="container-main">
+      <a className="skip-link" href="#about">
+        Skip to content
+      </a>
       <Cursor />
       <Navbar />
       <SocialIcons />
@@ -41,13 +66,12 @@ const MainContainer = ({ children }: PropsWithChildren) => {
             <Landing>{!isDesktopView && children}</Landing>
             <About />
             <WhatIDo />
+            <ImpactMetrics />
+            <Experience />
+            <CaseStudies />
+            <HowIWork />
             <Career />
-            <Work />
-            {isDesktopView && (
-              <Suspense fallback={<div>Loading....</div>}>
-                <TechStack />
-              </Suspense>
-            )}
+            <TechStack />
             <Contact />
           </div>
         </div>

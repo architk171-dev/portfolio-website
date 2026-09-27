@@ -1,62 +1,79 @@
 import "./styles/Career.css";
 
+const education = [
+  {
+    school: "Masters' Union",
+    degree: "PGP in Technology & Business Management",
+    period: "2026 – Present",
+    detail: "Manoj Kohli Merit Scholarship (25%) · Product Management & FOCOS",
+  },
+  {
+    school: "Bharati Vidyapeeth's College of Engineering (GGSIPU)",
+    degree: "BTech, Electronics & Communication Engineering",
+    period: "2019 – 2023",
+    detail: "CGPA 9.0/10 · Top 5% of ECE department",
+  },
+];
+
+const achievements = [
+  {
+    badge: "2nd Runner-up · ₹50,000",
+    title: "IIT Roorkee E-Summit Case Competition",
+    detail: "Placed among the top 50 teams.",
+  },
+  {
+    badge: "IEEE ICCCNT 2023",
+    title: "Co-authored research paper, IIT Delhi",
+    detail: "ML-based malicious-DNS detection at 95% accuracy.",
+  },
+  {
+    badge: "Vice President",
+    title: "Enactus BVCOE",
+    detail: "Led a 70+ member team across 3 social enterprises; won the KPMG Ethics Grant and a ₹25,000 Sulabh grant.",
+  },
+];
+
 const Career = () => {
   return (
-    <div className="career-section section-container">
-      <div className="career-container">
-        <h2>
-          Education <span>&</span>
-          <br /> achievements
+    <section className="section edu-section" id="education" aria-labelledby="edu-title">
+      <div className="section-head" data-reveal>
+        <p className="eyebrow">Education &amp; achievements</p>
+        <h2 className="section-title" id="edu-title">
+          Foundations <em>and recognition.</em>
         </h2>
-        <div className="career-info">
-          <div className="career-timeline">
-            <div className="career-dot"></div>
-          </div>
-          <div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>PGP TBM</h4>
-                <h5>Masters' Union</h5>
-              </div>
-              <h3>Present</h3>
-            </div>
-            <p>
-              PGP in Technology & Business Management. Awarded the Manoj Kohli
-              Merit Scholarship (25% tuition). Product specialization with
-              live projects at FarMart and INDmoney.
-            </p>
-          </div>
-          <div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>BTech ECE</h4>
-                <h5>BVCOE, GGSIPU</h5>
-              </div>
-              <h3>2023</h3>
-            </div>
-            <p>
-              9.0 CGPA, Top 5% of class. Co-authored IEEE research paper on
-              ML-based malicious DNS detection (95% accuracy) presented at
-              ICCCNT 2023, IIT Delhi.
-            </p>
-          </div>
-<div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>Café Co-founder</h4>
-                <h5>F&B Venture</h5>
-              </div>
-              <h3>May'24</h3>
-            </div>
-            <p>
-              Co-founded and scaled a café to ₹75L revenue. Full P&L ownership
-              — menu experiments, vendor management, Swiggy/Zomato listings,
-              and Instagram growth marketing.
-            </p>
-          </div>
+      </div>
+
+      <div className="edu-grid">
+        <div data-reveal>
+          <h3 className="edu-col-title">Education</h3>
+          <ul className="edu-list">
+            {education.map((e) => (
+              <li className="card edu-card" key={e.school}>
+                <div className="edu-top">
+                  <h4>{e.school}</h4>
+                  <span className="edu-period">{e.period}</span>
+                </div>
+                <p className="edu-degree">{e.degree}</p>
+                <p className="edu-detail">{e.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div data-reveal>
+          <h3 className="edu-col-title">Achievements</h3>
+          <ul className="edu-list">
+            {achievements.map((a) => (
+              <li className="card edu-card" key={a.title}>
+                <span className="edu-badge">{a.badge}</span>
+                <h4>{a.title}</h4>
+                <p className="edu-detail">{a.detail}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

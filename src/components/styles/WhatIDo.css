@@ -390,3 +390,146 @@
     line-height: 6.8rem;
   }
 }
+
+/* ---------- Readability pass ---------- */
+.whatIDO {
+  z-index: 12;
+}
+.what-box h2 {
+  letter-spacing: -0.02em;
+}
+.what-box-in {
+  height: 560px;
+}
+.what-content h3 {
+  letter-spacing: -0.01em;
+}
+.what-content h4 {
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 1;
+  font-weight: 500;
+  margin-top: 6px;
+}
+.what-content p {
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--text-muted);
+  max-width: 44ch;
+}
+.what-content-in h5 {
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+  opacity: 1;
+  margin: 18px 0 10px;
+}
+.what-content-flex {
+  gap: 8px;
+}
+.what-tags {
+  font-size: 14px;
+  padding: 6px 12px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+}
+@media only screen and (max-width: 1400px) {
+  .what-box-in {
+    height: 500px;
+  }
+  .what-content p {
+    font-size: 15px;
+  }
+  .what-tags {
+    font-size: 13px;
+  }
+}
+
+/* Mobile & tablet: no accordion, everything visible */
+@media only screen and (max-width: 1024px) {
+  .whatIDO {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    width: min(var(--container), calc(100% - 2 * var(--gutter)));
+    padding: var(--section-y) 0 0;
+  }
+  .what-box,
+  .what-box:last-child {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    margin: 0;
+    justify-content: flex-start;
+  }
+  .what-box h2 {
+    margin: 0 0 32px;
+    font-size: var(--fs-h2);
+    line-height: 1.05;
+  }
+  .what-box-in {
+    height: auto;
+    margin: 0;
+    width: 100%;
+    gap: 16px;
+  }
+  .what-border2,
+  .what-border1,
+  .what-corner,
+  .what-content::before,
+  .what-content::after {
+    display: none;
+  }
+  .whatIDO .what-content,
+  .whatIDO .what-content.what-sibling,
+  .whatIDO .what-content-active {
+    width: 100%;
+    min-height: 0 !important;
+    height: auto;
+    padding: 28px 24px !important;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .whatIDO .what-content h5,
+  .whatIDO .what-content-flex {
+    opacity: 1;
+  }
+  .what-content h3 {
+    font-size: 26px;
+  }
+  .what-content p {
+    font-size: 16px;
+  }
+  .what-content-in {
+    overflow: visible;
+    opacity: 1;
+    animation: none;
+  }
+  .what-arrow {
+    display: none;
+  }
+}
+
+/* Keep the heading clear of the 3D character on desktop */
+@media only screen and (min-width: 1025px) {
+  .what-box:first-child {
+    justify-content: flex-start;
+  }
+  .whatIDO .what-box h2 {
+    margin-right: 0;
+    margin-left: clamp(0px, 4vw, 80px);
+    font-size: calc(3vw + 22px);
+    line-height: 0.95;
+  }
+}

@@ -1,71 +1,53 @@
 .about-section {
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  place-items: center;
   position: relative;
-  opacity: 1;
-  height: auto;
-  width: var(--cWidth);
-  margin: auto;
+  z-index: 12;
+  width: min(var(--container), calc(100% - 2 * var(--gutter)));
+  margin-inline: auto;
+  padding-block: var(--section-y);
+  display: flex;
 }
 .about-me {
-  padding: 50px 0px;
-  padding-bottom: 0;
-  width: 500px;
-  max-width: calc(100% - 15px);
+  display: grid;
+  gap: 18px;
+  max-width: 620px;
 }
-.about-me h3 {
-  font-size: 25px;
-  text-transform: uppercase;
-  letter-spacing: 7px;
-  font-weight: 400;
-  color: var(--accentColor);
-}
-
-.about-me p {
-  font-size: 33px;
+.about-statement {
+  margin: 0;
+  font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
   font-weight: 600;
-  line-height: 36px;
-  letter-spacing: 1px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.about-statement em {
+  font-style: normal;
+  color: var(--accent);
+}
+.about-body {
+  margin: 0;
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 54ch;
+}
+.about-domains {
+  margin-top: 8px;
 }
 
-@media only screen and (min-width: 600px) {
+@media (min-width: 1025px) {
   .about-section {
-    justify-content: center;
-  }
-}
-@media only screen and (min-width: 768px) {
-  .about-me {
-    width: 500px;
-    max-width: calc(100% - 70px);
-    transform: translateY(0%);
-  }
-  .about-section {
-    opacity: 1;
-  }
-}
-@media only screen and (min-width: 1025px) {
-  .about-section {
-    width: var(--cWidth);
-    justify-content: right;
-    max-width: 1920px;
-    height: var(--vh);
-    padding: 0px;
-    opacity: 1;
+    min-height: var(--vh);
+    align-items: center;
+    justify-content: flex-end;
+    padding-block: 0;
+    box-sizing: border-box;
   }
   .about-me {
-    padding: 0px;
-    width: 50%;
-  }
-  .about-me p {
-    font-size: 1.9vw;
-    line-height: 2.3vw;
-  }
-}
-@media only screen and (min-width: 1950px) {
-  .about-me p {
-    font-size: 2.5rem;
-    line-height: 2.7rem;
+    width: 46%;
+    padding: 36px;
+    border-radius: var(--radius);
+    background: rgba(11, 8, 12, 0.72);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
   }
 }

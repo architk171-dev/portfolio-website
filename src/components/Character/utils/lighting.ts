@@ -85,7 +85,7 @@ const setLighting = (scene: THREE.Scene) => {
     });
     gsap.to(".character-rim", {
       y: "55%",
-      opacity: 1,
+      opacity: 0.55,
       delay: 0.2,
       duration: 2,
     });
