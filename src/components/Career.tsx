@@ -18,7 +18,7 @@ const Career = () => {
                 <h4>PGP TBM</h4>
                 <h5>Masters' Union</h5>
               </div>
-              <h3>2026-Present</h3>
+              <h3>Present</h3>
             </div>
             <p>
               PGP in Technology & Business Management. Awarded the Manoj Kohli
@@ -32,7 +32,7 @@ const Career = () => {
                 <h4>BTech ECE</h4>
                 <h5>BVCOE, GGSIPU</h5>
               </div>
-              <h3>2019-2023</h3>
+              <h3>2023</h3>
             </div>
             <p>
               9.0 CGPA, Top 5% of class. Co-authored IEEE research paper on
@@ -40,27 +40,13 @@ const Career = () => {
               ICCCNT 2023, IIT Delhi.
             </p>
           </div>
-          <div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>LeadBahi.ai</h4>
-                <h5>FarMart Hackathon</h5>
-              </div>
-              <h3>2025</h3>
-            </div>
-            <p>
-              2nd Runner-up — built a voice-first WhatsApp AI tool for
-              lead management. Competed against 50+ teams across product,
-              engineering, and business tracks.
-            </p>
-          </div>
-          <div className="career-info-box">
+<div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
                 <h4>Café Co-founder</h4>
                 <h5>F&B Venture</h5>
               </div>
-              <h3>Jul'23-May'24</h3>
+              <h3>May'24</h3>
             </div>
             <p>
               Co-founded and scaled a café to ₹75L revenue. Full P&L ownership

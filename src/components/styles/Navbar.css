@@ -40,9 +40,6 @@
   letter-spacing: 1px;
   font-weight: 500;
   white-space: nowrap;
-  max-width: 350px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .navbar-title {
   font-weight: 700;
