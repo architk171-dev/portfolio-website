@@ -18,7 +18,7 @@ const Career = () => {
                 <h4>PGP TBM</h4>
                 <h5>Masters' Union</h5>
               </div>
-              <h3>2027</h3>
+              <h3>2026-Present</h3>
             </div>
             <p>
               PGP in Technology & Business Management. Awarded the Manoj Kohli
@@ -32,7 +32,7 @@ const Career = () => {
                 <h4>BTech ECE</h4>
                 <h5>BVCOE, GGSIPU</h5>
               </div>
-              <h3>2023</h3>
+              <h3>2019-2023</h3>
             </div>
             <p>
               9.0 CGPA, Top 5% of class. Co-authored IEEE research paper on
@@ -60,7 +60,7 @@ const Career = () => {
                 <h4>Café Co-founder</h4>
                 <h5>F&B Venture</h5>
               </div>
-              <h3>2022</h3>
+              <h3>Jul'23-May'24</h3>
             </div>
             <p>
               Co-founded and scaled a café to ₹75L revenue. Full P&L ownership
