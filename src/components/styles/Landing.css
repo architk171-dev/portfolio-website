@@ -135,6 +135,19 @@
   position: relative;
   pointer-events: none;
   z-index: 2;
+  /* Soften the hard-cut bust edges so the trimmed torso fades into the page */
+  -webkit-mask-image: radial-gradient(
+    ellipse 40% 48% at 50% 43%,
+    #000 68%,
+    rgba(0, 0, 0, 0.35) 86%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 40% 48% at 50% 43%,
+    #000 68%,
+    rgba(0, 0, 0, 0.35) 86%,
+    transparent 100%
+  );
 }
 .character-rim {
   position: absolute;

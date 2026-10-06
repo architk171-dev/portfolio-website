@@ -24,6 +24,25 @@ const WhatIDo = () => {
       });
     };
   }, []);
+
+  // Safety net: the cards normally reveal via the 3D character scroll timeline.
+  // If that misfires (fast scroll, jank), force them visible once the section
+  // is on screen so "What I Do" can never stay blank.
+  useEffect(() => {
+    const box = document.querySelector<HTMLElement>(".what-box-in");
+    if (!box) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          box.style.display = "flex";
+          io.disconnect();
+        }
+      },
+      { rootMargin: "-20% 0px -20% 0px" }
+    );
+    io.observe(box.closest(".whatIDO") as Element);
+    return () => io.disconnect();
+  }, []);
   return (
     <div className="whatIDO">
       <div className="what-box">

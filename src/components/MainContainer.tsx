@@ -1,12 +1,11 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import About from "./About";
 import Career from "./Career";
-import CaseStudies from "./CaseStudies";
+import CareerExplorer from "./CareerExplorer";
 import Contact from "./Contact";
 import Cursor from "./Cursor";
-import Experience from "./Experience";
 import HowIWork from "./HowIWork";
-import ImpactMetrics from "./ImpactMetrics";
+import ProductCases from "./ProductCases";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
 import SocialIcons from "./SocialIcons";
@@ -66,9 +65,8 @@ const MainContainer = ({ children }: PropsWithChildren) => {
             <Landing>{!isDesktopView && children}</Landing>
             <About />
             <WhatIDo />
-            <ImpactMetrics />
-            <Experience />
-            <CaseStudies />
+            <ProductCases />
+            <CareerExplorer />
             <HowIWork />
             <Career />
             <TechStack />
