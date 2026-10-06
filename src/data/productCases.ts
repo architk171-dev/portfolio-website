@@ -13,7 +13,6 @@ export type Block =
       columns?: string[];
       rows?: string[][];
     }
-  | { t: "links"; items: { label: string; href: string }[] }
   | { t: "screens" };
 
 export type Section = { id: string; title: string; accent: string; blocks: Block[] };
@@ -31,6 +30,7 @@ export type ProductCase = {
   kind: string;
   period: string;
   focus: string;
+  figmaUrl: string;
   tools: string[];
   collage: { main: string; left: string; right: string };
   screens: Screen[];
@@ -49,6 +49,7 @@ const creditlink: ProductCase = {
   kind: "Personal case study",
   period: "2026",
   focus: "Credit on UPI for new-to-credit users",
+  figmaUrl: "https://www.figma.com/design/67PaM6JTHcOifc0n4JoeY6",
   tools: ["Figma", "Product strategy", "Unit economics", "Systems design"],
   collage: {
     main: "/cases/creditlink/05-live.webp",
@@ -241,24 +242,6 @@ const creditlink: ProductCase = {
           "Our own lending licence. An NBFC licence is slow and eats capital. Partnering with a bank lets us test demand first.",
           "Rewards on spends. They attract people chasing points, not people who repay. I'd reward paying on time instead.",
         ] },
-        { t: "steps", heading: "Next steps", items: [
-          { title: "Interview 8 target users", text: "Across the three segments, to test the consent and offer screens." },
-          { title: "Confirm interchange", text: "Check the final credit-line interchange rate in the NPCI circular and update the unit economics." },
-          { title: "Prototype and test", text: "Turn the hi-fi mockups into a clickable prototype and run 5 usability tests." },
-          { title: "Write the v2 spec", text: "Spec EMI conversion." },
-        ] },
-        { t: "links", items: [
-          { label: "UPI users onboarded as of June 2026 (Outlook Money)", href: "https://www.outlookmoney.com/banking/upi-transaction-value-reaches-rs-314-lakh-crore-in-fy26-govt-says-in-lok-sabha" },
-          { label: "Active UPI users, 2025 (TechRT)", href: "https://techrt.com/upi-statistics/" },
-          { label: "HDFC and ICICI credit lines on UPI: limits and fees (Business Standard)", href: "https://www.business-standard.com/finance/news/want-to-upi-now-and-pay-later-here-s-how-to-do-upi-with-less-balance-123091401039_1.html" },
-          { label: "Paytm Postpaid with Suryoday Bank (MediaNama)", href: "https://www.medianama.com/2025/09/223-paytm-upi-credit-line-suryoday-bank/" },
-          { label: "Karnataka Bank credit line on UPI", href: "https://www.karnatakabank.bank.in/personal/loans/credit-line-on-upi" },
-          { label: "RBI Digital Lending Directions 2025 (Argus Partners)", href: "https://www.argus-p.com/updates/updates/rbi-digital-lending-directions-2025-an-overview/" },
-          { label: "DLG 5% cap (Mondaq)", href: "https://www.mondaq.com/india/fin-tech/1636908/digital-lending-directions-2025" },
-          { label: "Credit line interchange ~1.2% (Business Today)", href: "https://www.businesstoday.in/personal-finance/news/story/npci-may-fix-12-interchange-for-credit-line-on-upi-notification-next-week-report-436585-2024-07-10" },
-          { label: "Credit line MDR guide citing 1.3% (Mindgate)", href: "https://www.mindgate.solutions/guides/upi-credit-line-merchant-charges/" },
-          { label: "Slow start without interchange (Business Standard)", href: "https://www.business-standard.com/finance/news/fintech-co-navi-collabs-with-karnataka-bank-to-introduce-credit-line-on-upi-124081401690_1.html" },
-        ] },
       ],
     },
   ],
@@ -276,6 +259,7 @@ const raktaa: ProductCase = {
   kind: "Product teardown and redesign",
   period: "2026",
   focus: "Mutual fund onboarding for NRIs",
+  figmaUrl: "https://www.figma.com/design/7qk457TGC8siNTSDC9Nk2X",
   tools: ["Figma", "Competitive teardown", "Friction mapping", "Systems design"],
   collage: {
     main: "/cases/raktaa/09-status.webp",
@@ -466,22 +450,6 @@ const raktaa: ProductCase = {
           "US/Canada as a launch market. Too few funds accept them. Start with the Gulf, UK and Singapore, and add US/Canada with partner fund houses later.",
           "Stocks and PIS accounts in v1. A different regulatory path. Funds first.",
           "Tax filing for NRIs. Valuable, but a separate product. Partner rather than build.",
-        ] },
-        { t: "steps", heading: "Next steps", items: [
-          { title: "Walk the teardown", text: "Run each route with a test profile and add screenshots." },
-          { title: "Interview 8 NRIs", text: "Across the Gulf, UK and US, to test the friction map." },
-          { title: "Confirm the rules", text: "Check current KRA and fund house rules for video verification by country." },
-          { title: "Prototype and test", text: "Turn the hi-fi screens into a clickable prototype and test the address-proof step." },
-        ] },
-        { t: "links", items: [
-          { label: "Kotak MF: NRI investment in mutual funds", href: "https://www.kotakmf.com/Information/blogs/nri-investment-in-mutual-funds" },
-          { label: "DSP: How NRIs invest in Indian mutual funds", href: "https://www.dspim.com/knowledge-hub/personal-finance-guide/how-nris-invest-in-indian-mutual-funds" },
-          { label: "HSBC MF: NRI corner", href: "https://www.assetmanagement.hsbc.co.in/en/mutual-funds/nri-corner" },
-          { label: "SBNRI: KYC for NRI mutual funds", href: "https://sbnri.com/blog/nri-mutual-fund/kyc-for-nri-mutual-fund" },
-          { label: "NRI mutual fund KYC in 2026 (Meta Investment)", href: "https://metainvestment.in/2026/05/14/nri-mutual-fund-kyc-2026-compliance-handbook/" },
-          { label: "Mutual fund KYC for NRIs online (NRI Taxs)", href: "https://nritaxs.com/mutual-fund-kyc-for-nris/" },
-          { label: "Best NRI mutual fund platforms (Belong)", href: "https://getbelong.com/blog/mutual-funds/best-investment-platform/" },
-          { label: "Personal finance apps for NRIs (Back to India)", href: "https://backtoindia.com/banking/personal-finance-apps/" },
         ] },
       ],
     },

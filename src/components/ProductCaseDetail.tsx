@@ -180,21 +180,6 @@ const Blocks = ({ blocks, c }: { blocks: Block[]; c: ProductCase }) => (
               )}
             </article>
           );
-        case "links":
-          return (
-            <div className="pc-block" key={idx}>
-              <h3 className="pc-h3">Sources</h3>
-              <ul className="pc-links">
-                {b.items.map((l) => (
-                  <li key={l.href}>
-                    <a href={l.href} target="_blank" rel="noopener noreferrer">
-                      {l.label} <MdOpenInNew aria-hidden="true" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
         case "screens":
           return <ScreenWalk key={idx} caseId={c.id} screens={c.screens} />;
         default:
@@ -290,6 +275,9 @@ const ProductCaseDetail = ({ c, next, onClose, onOpen }: Props) => {
             {c.headline} <em>{c.accent}</em>
           </h1>
           <p className="pc-lede">{c.summary}</p>
+          <a className="pc-figma" href={c.figmaUrl} target="_blank" rel="noopener noreferrer">
+            View the designs in Figma <MdOpenInNew aria-hidden="true" />
+          </a>
         </header>
 
         <div className="pc-hero-art">

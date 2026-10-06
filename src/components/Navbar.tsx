@@ -12,8 +12,8 @@ export const RESUME_URL = "/Archit_Kumar_Resume.pdf";
 
 const links = [
   { id: "about", label: "About" },
-  { id: "work", label: "Work" },
   { id: "experience", label: "Experience" },
+  { id: "work", label: "Work" },
   { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ];
