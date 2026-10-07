@@ -23,6 +23,7 @@ const WhatIDo = () => (
         <h2 className="title" id="what-title">
           What I <em>do.</em>
         </h2>
+        <p className="what-note">Two lanes I keep sharp: shipping product end to end, and using data and AI to move the numbers.</p>
       </div>
       <div className="what-list">
         {areas.map((a) => (
