@@ -47,3 +47,43 @@
 @media (max-width: 900px) { .what-note { max-width: 52ch; } }
 
 .what-note em { font-family: var(--font-display); font-style: italic; font-size: 1.12em; color: var(--accent); }
+
+/* ---------- What I Do entrance ---------- */
+.reveal-ready .what-card[data-reveal] {
+  opacity: 0;
+  transform: translateX(44px) translateY(10px);
+  transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+.reveal-ready .what-card[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+.what-list .what-card:nth-child(2) { transition-delay: 0.12s; }
+
+/* Heading slips up, note fades a touch after */
+.reveal-ready .what-intro[data-reveal] { transition-delay: 0s; }
+.what-note { transition-delay: 0.1s; }
+
+/* Chips cascade once their card is visible */
+.what-tools li {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.what-card.is-visible .what-tools li {
+  animation: chipIn 0.4s ease forwards;
+}
+.what-card.is-visible .what-tools li:nth-child(1) { animation-delay: 0.25s; }
+.what-card.is-visible .what-tools li:nth-child(2) { animation-delay: 0.30s; }
+.what-card.is-visible .what-tools li:nth-child(3) { animation-delay: 0.35s; }
+.what-card.is-visible .what-tools li:nth-child(4) { animation-delay: 0.40s; }
+.what-card.is-visible .what-tools li:nth-child(5) { animation-delay: 0.45s; }
+.what-card.is-visible .what-tools li:nth-child(6) { animation-delay: 0.50s; }
+.what-card.is-visible .what-tools li:nth-child(7) { animation-delay: 0.55s; }
+.what-card.is-visible .what-tools li:nth-child(8) { animation-delay: 0.60s; }
+@keyframes chipIn {
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready .what-card[data-reveal] { transform: none; }
+  .what-tools li { opacity: 1; transform: none; animation: none; }
+}

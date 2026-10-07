@@ -36,3 +36,21 @@ html body .what-intro .title em {
 
 /* Sizes */html body .section-title { font-size: clamp(3rem, 2rem + 4vw, 5.5rem); line-height: 1; letter-spacing: -0.02em; }html body .hero-role { font-size: clamp(3rem, 1.8rem + 4.6vw, 5.75rem); line-height: 0.98; letter-spacing: -0.02em; }html body .about-statement { font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.5rem); line-height: 1.04; letter-spacing: -0.015em; }html body .pc-title { font-size: clamp(2.6rem, 1.8rem + 3.6vw, 4.75rem); line-height: 1; letter-spacing: -0.02em; }html body .pc-h2 { font-size: clamp(2rem, 1.6rem + 2vw, 3.25rem); line-height: 1.05; letter-spacing: -0.015em; }html body .pc-headline { font-size: clamp(2rem, 1.4rem + 2.4vw, 3.3rem); line-height: 1.04; letter-spacing: -0.015em; }html body .pc-headline em { font-size: 1em; }html body .how-card h3 { font-size: clamp(1.6rem, 1.3rem + 0.9vw, 2.1rem); line-height: 1.1; }html body .tl-company { font-size: clamp(1.8rem, 1.4rem + 1.2vw, 2.4rem); line-height: 1.08; }html body .ds-panel h3 { font-size: clamp(2rem, 1.5rem + 1.4vw, 2.7rem); line-height: 1.05; }html body .ds-l-panel h3 { font-size: clamp(1.8rem, 1.4rem + 1vw, 2.3rem); line-height: 1.08; }html body .lc-body h3 { font-size: clamp(1.7rem, 1.4rem + 0.8vw, 2.1rem); line-height: 1.08; }
 html body .edu-ach h4 { font-size: clamp(1.35rem, 1.15rem + 0.6vw, 1.65rem); line-height: 1.15; }
+
+/* ---------- Heading reveal on scroll (applies to every section) ---------- */
+.reveal-ready [data-reveal] :is(.section-title, .what-intro .title, .about-statement, .cta-title) em {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.4em) rotate(1.5deg);
+  transition: opacity 0.6s ease 0.22s, transform 0.65s cubic-bezier(0.2, 0.75, 0.2, 1) 0.22s;
+}
+.reveal-ready [data-reveal].is-visible :is(.section-title, .what-intro .title, .about-statement, .cta-title) em {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready [data-reveal] :is(.section-title, .what-intro .title, .about-statement, .cta-title) em {
+    opacity: 1;
+    transform: none;
+  }
+}
