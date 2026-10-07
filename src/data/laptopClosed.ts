@@ -1,5 +1,5 @@
 // Paste a Spotify share link here to show the song tile. While it is empty the tile is hidden.
-export const spotifyUrl = "";
+export const spotifyUrl = "https://open.spotify.com/track/6XQHlsNu6so4PdglFkJQRJ";
 export const spotifyNote = "";
 
 export type Tile = {
