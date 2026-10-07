@@ -11,7 +11,7 @@ import Landing from "./Landing";
 import LaptopClosed from "./LaptopClosed";
 import Navbar from "./Navbar";
 import SocialIcons from "./SocialIcons";
-import TechStack from "./TechStack";
+// import TechStack from "./TechStack";
 import WhatIDo from "./WhatIDo";
 import setSplitText from "./utils/splitText";
 
@@ -73,7 +73,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
             <ProductCases />
             <Dropshipping />
               <LaptopClosed />
-            <TechStack />
+            {/* <TechStack /> */}
             <Contact />
           </div>
         </div>
