@@ -23,7 +23,7 @@ const Landing = ({ children }: PropsWithChildren) => {
             and FarMart, from discovery to GTM.
           </p>
           <div className="hero-ctas">
-            <a className="btn btn-primary" href="#work">
+            <a className="btn btn-primary" href="#experience">
               View work <MdArrowForward aria-hidden="true" />
             </a>
             <a className="btn" href={RESUME_URL} target="_blank" rel="noopener">
