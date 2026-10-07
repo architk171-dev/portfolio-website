@@ -3,6 +3,8 @@ import { MdPause, MdPlayArrow } from "react-icons/md";
 import { Tile, spotifyNote, spotifyUrl, tiles } from "../data/laptopClosed";
 import "./styles/LaptopClosed.css";
 
+const finePointer = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
 const VideoMedia = ({ src, poster, title }: { src: string; poster: string; title: string }) => {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -11,7 +13,11 @@ const VideoMedia = ({ src, poster, title }: { src: string; poster: string; title
   const pause = () => ref.current?.pause();
 
   return (
-    <>
+    <div
+      className="lc-hover"
+      onMouseEnter={() => finePointer() && play()}
+      onMouseLeave={() => finePointer() && pause()}
+    >
       <video
         ref={ref}
         src={src}
@@ -33,7 +39,7 @@ const VideoMedia = ({ src, poster, title }: { src: string; poster: string; title
       >
         <span aria-hidden="true">{playing ? <MdPause /> : <MdPlayArrow />}</span>
       </button>
-    </>
+    </div>
   );
 };
 

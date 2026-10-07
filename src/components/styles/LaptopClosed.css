@@ -132,3 +132,5 @@
 @media (prefers-reduced-motion: reduce) {
   .lc-m img, .lc-m video { transition: none; }
 }
+
+.lc-hover { position: absolute; inset: 0; }
