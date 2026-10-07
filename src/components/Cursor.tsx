@@ -9,7 +9,7 @@ type TubesFactory = (
 
 const TUBE_COLORS = ["#4c1d95", "#6d28d9", "#8b5cf6", "#a78bfa", "#c4b5fd"];
 const LIGHT_COLORS = ["#5b21b6", "#7c3aed", "#8b5cf6", "#a78bfa", "#ddd6fe", "#c4b5fd"];
-const QUIET_SELECTOR = ".card, .tl-card, .pc-card, .pc-table-wrap, .pc-steps li, .pc-scenario, .pc-callout";
+const QUIET_SELECTOR = ".card, .tl-card, .pc-card, .pc-table-wrap, .pc-steps li, .pc-scenario, .pc-callout, .lc-tile";
 
 const Cursor = () => {
   const hostRef = useRef<HTMLDivElement>(null);

@@ -8,6 +8,7 @@ import Cursor from "./Cursor";
 import HowIWork from "./HowIWork";
 import ProductCases from "./ProductCases";
 import Landing from "./Landing";
+import LaptopClosed from "./LaptopClosed";
 import Navbar from "./Navbar";
 import SocialIcons from "./SocialIcons";
 import TechStack from "./TechStack";
@@ -71,6 +72,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
             <HowIWork />
             <ProductCases />
             <Dropshipping />
+              <LaptopClosed />
             <TechStack />
             <Contact />
           </div>
