@@ -169,32 +169,6 @@ export const roles: Role[] = [
     tools: ["REST APIs", "RCA"],
   },
   {
-    id: "enactus",
-    dates: '2021 — 2023',
-    meta: 'Vice President · Social enterprise',
-    summary: "70 students, 3 social ventures, and almost no budget. It was my first real lesson in getting people to rally and actually ship change when all you've got is enthusiasm.",
-    company: "Enactus BVCOE",
-    role: "Vice President",
-    period: "2021 – 2023",
-    context: "Social enterprise · Leadership · New Delhi",
-    scope: "Led a student team running social enterprises that generate employment.",
-    groups: [
-      {
-        title: "Leadership",
-        points: [
-          "Led a 70+ member team across 3 social enterprises, generating employment for 50+ individuals.",
-          "Won the KPMG Ethics Grant and a ₹25,000 Sulabh grant; executed the Niramya vending project end-to-end.",
-        ],
-      },
-    ],
-    metrics: [
-      { value: "70+", label: "member team" },
-      { value: "3", label: "social enterprises" },
-      { value: "50+", label: "people employed" },
-    ],
-    tools: ["Leadership", "Project management"],
-  },
-  {
     id: "early",
     dates: 'BEFORE PRODUCT',
     meta: 'Marketing · Operations · ML interns',
@@ -202,14 +176,14 @@ export const roles: Role[] = [
     company: "Early internships",
     role: "Marketing · Operations · ML",
     period: "Before product",
-    context: "Fansee · Cpredogcrew · Coforge",
+    context: "Fansee · Crepdog Crew · Coforge",
     scope: "Three internships across very different functions before choosing product.",
     groups: [
       {
         title: "What each one taught me",
         points: [
           "Fansee, Marketing Intern: customer segmentation and pricing strategy.",
-          "Cpredogcrew, Operations Intern: inventory management and competitor analysis at a D2C apparel company.",
+          "Crepdog Crew, Operations Intern: inventory management and competitor analysis at a D2C apparel company.",
           "Coforge, Machine Learning Intern: built ML models and a resume parser with 90% accuracy.",
         ],
       },

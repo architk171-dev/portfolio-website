@@ -27,6 +27,11 @@ const achievements = [
     detail: "ML-based malicious-DNS detection at 95% accuracy.",
   },
   {
+    badge: "30+ medals",
+    title: "State & National Karate",
+    detail: "Brown-Black Belt after 8+ years of training.",
+  },
+  {
     badge: "Vice President",
     title: "Enactus BVCOE",
     detail: "Led a 70+ member team across 3 social enterprises; won the KPMG Ethics Grant and a ₹25,000 Sulabh grant.",
