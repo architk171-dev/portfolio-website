@@ -25,7 +25,15 @@ export type DropJourney = {
   showRoas?: boolean;
   months: DropMonth[];
   products?: { name: string; note: string; image?: string }[];
-  video?: { src: string; title: string; caption?: string };
+  videos?: { src: string; title: string; caption?: string }[];
+  traffic?: {
+    period: string;
+    sessions: number;
+    engagementRate: number;
+    keyEvents: number;
+    revenue: number;
+    channels: { name: string; sessions: number; keyEvents: number; keyRate: number; revenue: number }[];
+  };
   books?: { image: string; caption: string };
   lessons: string[];
 };
@@ -38,7 +46,7 @@ export const dropshipping: DropJourney | null = {
   storeUrl: "https://checkvibe.shop/",
   niche: "Gadgets and desk accessories",
   platform: "Online store plus Instagram ads",
-  period: "28 Jul to 15 Sep 2025",
+  period: "28 Jul to 15 Sep 2026",
   status: "Audited, 8 trading weeks",
   summary:
     "Eight weeks of the Vibe Check P&L, straight from the books. Pick a week to see what came in, what it cost and what was left.",
@@ -59,7 +67,30 @@ export const dropshipping: DropJourney | null = {
     { name: "Foldable wireless keyboard", note: "Bluetooth 5.2, folds flat, charges over Type-C.", image: "/dropshipping/keyboard.webp" },
     { name: "Portable projector", note: "Built-in Bluetooth 5.0 for pairing speakers and earphones.", image: "/dropshipping/projector.webp" },
   ],
-  video: { src: "/dropshipping/phase-3.mp4", title: "Phase 3" },
+  videos: [
+    { src: "/dropshipping/phase-1.mp4", title: "Phase 1" },
+    { src: "/dropshipping/phase-2.mp4", title: "Phase 2" },
+    { src: "/dropshipping/phase-3.mp4", title: "Phase 3" },
+  ],
+  traffic: {
+    period: "1 Jul to 15 Sep 2026, Google Analytics",
+    sessions: 16340,
+    engagementRate: 30.32,
+    keyEvents: 440,
+    revenue: 1910175,
+    channels: [
+      { name: "Paid social", sessions: 14997, keyEvents: 244, keyRate: 1.57, revenue: 822928 },
+      { name: "Direct", sessions: 851, keyEvents: 188, keyRate: 14.92, revenue: 945604 },
+      { name: "Organic social", sessions: 383, keyEvents: 8, keyRate: 2.09, revenue: 141643 },
+      { name: "Organic search", sessions: 88, keyEvents: 0, keyRate: 0, revenue: 0 },
+    ],
+  },
   books: { image: "/dropshipping/weekly-sales.webp", caption: "The weekly P&L sheet the numbers above come from." },
-  lessons: [],
+  lessons: [
+    "Finding vendors is the real first product. Reliable suppliers are hard to find, so test a small order before putting ad money behind any item.",
+    "Price is only one term. Lead time, minimum order and returns cover shape your margin too, so negotiate all of them.",
+    "Margin is made when you buy. Cost of goods was 69% of revenue and marketing only 4%, and weekly gross margin swung between 11.6% and 45.5%.",
+    "Running Meta ads from scratch means reading beyond the ad dashboard. Paid social brought 92% of visits but converted at 1.6%, while direct visitors converted at 14.9%.",
+    "Setting up Shopify and running operations is the unglamorous half. Payments, shipping and order handling had to work before any ad was worth running.",
+  ],
 };

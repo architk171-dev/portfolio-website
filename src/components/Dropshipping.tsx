@@ -41,6 +41,25 @@ const Count = ({ value, prefix = "", suffix = "", run }: { value: number; prefix
   );
 };
 
+const Phases = ({ videos }: { videos: NonNullable<DropJourney["videos"]> }) => {
+  const [v, setV] = useState(0);
+  const cur = videos[v];
+  return (
+    <div className="ds-block" data-reveal>
+      <h3 className="ds-h3">The build, phase by phase</h3>
+      <div className="ds-phases" role="tablist" aria-label="Phases">
+        {videos.map((x, n) => (
+          <button key={x.src} type="button" role="tab" aria-selected={n === v} className={n === v ? "is-active" : undefined} onClick={() => setV(n)}>
+            {x.title}
+          </button>
+        ))}
+      </div>
+      <video key={cur.src} className="ds-video" src={cur.src} controls playsInline preload="metadata" aria-label={cur.title} />
+      {cur.caption && <p className="ds-cap">{cur.caption}</p>}
+    </div>
+  );
+};
+
 const Journey = ({ d }: { d: DropJourney }) => {
   const [i, setI] = useState(() => {
     const best = d.months.reduce((b, m, n) => (m.revenue > d.months[b].revenue ? n : b), 0);
@@ -235,13 +254,36 @@ const Journey = ({ d }: { d: DropJourney }) => {
         </div>
       )}
 
-      {d.video && (
+      {d.traffic && (
         <div className="ds-block" data-reveal>
-          <h3 className="ds-h3">{d.video.title}</h3>
-          <video className="ds-video" src={d.video.src} controls playsInline preload="metadata" aria-label={d.video.title} />
-          {d.video.caption && <p className="ds-cap">{d.video.caption}</p>}
+          <h3 className="ds-h3">Where visitors came from</h3>
+          <p className="ds-cap ds-cap-top">{d.traffic.period}</p>
+          <ul className="ds-totals ds-traffic-totals">
+            <li><span className="ds-t-label">Sessions</span><span className="metric-value ds-t-value">{fmt(d.traffic.sessions)}</span></li>
+            <li><span className="ds-t-label">Engagement rate</span><span className="metric-value ds-t-value">{d.traffic.engagementRate}%</span></li>
+            <li><span className="ds-t-label">Key events</span><span className="metric-value ds-t-value">{fmt(d.traffic.keyEvents)}</span></li>
+            <li><span className="ds-t-label">Tracked revenue</span><span className="metric-value ds-t-value">{cur}{fmt(d.traffic.revenue)}</span></li>
+          </ul>
+          <div className="ds-channels">
+            {d.traffic.channels.map((c) => (
+              <div className="ds-ch" key={c.name}>
+                <strong>{c.name}</strong>
+                <div className="ds-ch-row">
+                  <span>Sessions {fmt(c.sessions)}</span>
+                  <i style={{ width: `${(c.sessions / d.traffic!.sessions) * 100}%` }} />
+                </div>
+                <div className="ds-ch-row ds-ch-rev">
+                  <span>Revenue {cur}{fmt(c.revenue)}</span>
+                  <i style={{ width: `${(c.revenue / d.traffic!.revenue) * 100}%` }} />
+                </div>
+                <small>{c.keyRate}% of sessions converted</small>
+              </div>
+            ))}
+          </div>
         </div>
       )}
+
+      {d.videos && d.videos.length > 0 && <Phases videos={d.videos} />}
 
       {d.books && (
         <div className="ds-block" data-reveal>
