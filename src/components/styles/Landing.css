@@ -185,3 +185,60 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-portrait::before, .hero-portrait img { transition: none; transform: none; }
 }
+
+/* ---------- Illustrated-hero touches ---------- */
+.hero-dust {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+.landing-container { position: relative; z-index: 13; }
+
+/* Hand-drawn sparkle beside the portrait */
+.hero-spark {
+  position: absolute;
+  top: 2%;
+  left: -2%;
+  width: clamp(44px, 7vw, 74px);
+  color: var(--accent);
+  opacity: 0;
+  z-index: 4;
+  animation: sparkPop 0.5s ease-out 1.1s forwards, sparkTwinkle 4s ease-in-out 1.6s infinite;
+  transform-origin: center;
+}
+@keyframes sparkPop {
+  from { opacity: 0; transform: scale(0.4) rotate(-20deg); }
+  to { opacity: 0.9; transform: scale(1) rotate(0deg); }
+}
+@keyframes sparkTwinkle {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.45; }
+}
+
+/* Hand-drawn arrow nudging toward View work */
+.hero-arrow {
+  width: clamp(54px, 6vw, 82px);
+  color: var(--accent);
+  opacity: 0;
+  transform: rotate(8deg) scaleX(-1);
+  align-self: center;
+  margin-left: -4px;
+  animation: arrowIn 0.6s ease-out 1.4s forwards;
+}
+@keyframes arrowIn {
+  from { opacity: 0; transform: rotate(8deg) scaleX(-1) translateX(10px); }
+  to { opacity: 0.85; transform: rotate(8deg) scaleX(-1) translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-spark { opacity: 0.9; animation: none; }
+  .hero-arrow { opacity: 0.85; animation: none; }
+}
+
+@media (max-width: 1024px) {
+  .hero-arrow { display: none; }
+  .hero-spark { left: 4%; top: -4%; }
+}
