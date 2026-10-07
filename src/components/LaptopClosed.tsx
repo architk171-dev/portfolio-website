@@ -6,27 +6,23 @@ import "./styles/LaptopClosed.css";
 const finePointer = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const VideoMedia = ({ src, title }: { src: string; title: string }) => {
+const VideoMedia = ({ src, poster, title }: { src: string; poster: string; title: string }) => {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
-  const play = () => ref.current?.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
-  const pause = () => {
-    ref.current?.pause();
-    setPlaying(false);
-  };
-  const toggle = () => (playing ? pause() : play());
+  const play = () => ref.current?.play().catch(() => setPlaying(false));
+  const pause = () => ref.current?.pause();
 
   return (
     <>
       <video
         ref={ref}
-        className="lc-media"
-        src={`${src}#t=0.5`}
+        src={src}
+        poster={poster}
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         aria-hidden="true"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
@@ -36,7 +32,7 @@ const VideoMedia = ({ src, title }: { src: string; title: string }) => {
         className="lc-play"
         aria-label={`${playing ? "Pause" : "Play"} video: ${title}`}
         aria-pressed={playing}
-        onClick={toggle}
+        onClick={() => (playing ? pause() : play())}
         onMouseEnter={() => finePointer() && !reducedMotion() && play()}
         onMouseLeave={() => finePointer() && pause()}
       >
@@ -46,20 +42,30 @@ const VideoMedia = ({ src, title }: { src: string; title: string }) => {
   );
 };
 
-const PairMedia = ({ srcs }: { srcs: string[] }) => (
-  <div className="lc-pair">
-    {srcs.map((s) => (
-      <img key={s} src={s} alt="" loading="lazy" />
-    ))}
-  </div>
-);
+const Carousel = ({ srcs, title }: { srcs: string[]; title: string }) => {
+  const [i, setI] = useState(0);
+  return (
+    <>
+      {srcs.map((s, n) => (
+        <img key={s} src={s} alt={n === i ? title : ""} className={n === i ? "is-on" : undefined} loading="lazy" />
+      ))}
+      <div className="lc-dots" role="tablist" aria-label={`${title} photos`}>
+        {srcs.map((s, n) => (
+          <button key={s} type="button" role="tab" aria-selected={n === i} aria-label={`Photo ${n + 1}`} className={n === i ? "is-on" : undefined} onClick={() => setI(n)} />
+        ))}
+      </div>
+    </>
+  );
+};
 
 const TileView = ({ t }: { t: Tile }) => (
-  <article className={`lc-tile lc-${t.id}`} data-reveal>
-    {t.media.kind === "video" && <VideoMedia src={t.media.src} title={t.title} />}
-    {t.media.kind === "image" && <img className="lc-media" src={t.media.src} alt={t.title} loading="lazy" />}
-    {t.media.kind === "flip" && <PairMedia srcs={t.media.srcs} />}
-    <div className="lc-copy">
+  <article className="lc-card" data-reveal>
+    <div className="lc-m" style={{ aspectRatio: t.ratio }}>
+      {t.media.kind === "video" && <VideoMedia src={t.media.src} poster={t.media.poster} title={t.title} />}
+      {t.media.kind === "image" && <img className="is-on" src={t.media.src} alt={t.title} loading="lazy" />}
+      {t.media.kind === "carousel" && <Carousel srcs={t.media.srcs} title={t.title} />}
+    </div>
+    <div className="lc-body">
       <span className="lc-tag">{t.tag}</span>
       <h3>{t.title}</h3>
       <p>{t.text}</p>
@@ -87,6 +93,7 @@ const embedUrl = (u: string) => {
 
 const LaptopClosed = () => {
   const song = spotifyUrl ? embedUrl(spotifyUrl) : null;
+  const by = (...ids: string[]) => ids.map((id) => tiles.find((t) => t.id === id)!).filter(Boolean);
   return (
     <section className="section lc-section" id="off-the-clock" aria-labelledby="lc-title">
       <div className="section-head" data-reveal>
@@ -96,27 +103,21 @@ const LaptopClosed = () => {
         </h2>
         <p className="section-intro">Football, sneakers, mountains, Coco and a good drink.</p>
       </div>
-      <div className={`lc-grid${song ? " has-song" : ""}`}>
-        {tiles.map((t) => (
-          <TileView key={t.id} t={t} />
-        ))}
-        {song && (
-          <article className="lc-tile lc-song" data-reveal>
-            <div className="lc-copy lc-copy-song">
-              <span className="lc-tag">On repeat</span>
-              {spotifyNote && <p>{spotifyNote}</p>}
-            </div>
-            <iframe
-              title="Song on Spotify"
-              src={song}
-              width="100%"
-              height="152"
-              frameBorder="0"
-              allow="encrypted-media"
-              loading="lazy"
-            />
-          </article>
-        )}
+      <div className="lc-cols">
+        <div className="lc-col">{by("united", "cocktails").map((t) => <TileView key={t.id} t={t} />)}</div>
+        <div className="lc-col">
+          {by("trek").map((t) => <TileView key={t.id} t={t} />)}
+          {song && (
+            <article className="lc-card lc-song" data-reveal>
+              <div className="lc-body">
+                <span className="lc-tag">On repeat</span>
+                {spotifyNote && <p>{spotifyNote}</p>}
+              </div>
+              <iframe title="Song on Spotify" src={song} width="100%" height="152" frameBorder="0" allow="encrypted-media" loading="lazy" />
+            </article>
+          )}
+        </div>
+        <div className="lc-col">{by("sneakers", "coco").map((t) => <TileView key={t.id} t={t} />)}</div>
       </div>
     </section>
   );

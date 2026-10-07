@@ -4,33 +4,37 @@ export const spotifyNote = "";
 
 export type Tile = {
   id: string;
+  ratio: string;
   tag: string;
   title: string;
   text: string;
   chips?: string[];
   media:
-    | { kind: "video"; src: string }
+    | { kind: "video"; src: string; poster: string }
     | { kind: "image"; src: string }
-    | { kind: "flip"; srcs: string[] };
+    | { kind: "carousel"; srcs: string[] };
 };
 
 export const tiles: Tile[] = [
   {
     id: "united",
+    ratio: "4 / 5",
     tag: "Football",
     title: "Red Devils since 2013",
     text: "A Manchester United fan since 2013 and an active member of the Delhi United Supporters Club. I got to catch their first game of the season live.",
-    media: { kind: "video", src: "/closed/united.mp4" },
+    media: { kind: "video", src: "/closed/united.mp4", poster: "/closed/united-poster.webp" },
   },
   {
     id: "sneakers",
+    ratio: "4 / 5",
     tag: "Street wear",
     title: "Sneakers and hype",
     text: "Deep into street wear and hype culture. I interned at Crepdog Crew before their stores opened, built a good collection of shoes and sourced sneakers for a couple of celebrities.",
-    media: { kind: "video", src: "/closed/sneakers.mp4" },
+    media: { kind: "video", src: "/closed/sneakers.mp4", poster: "/closed/sneakers-poster.webp" },
   },
   {
     id: "trek",
+    ratio: "3 / 4",
     tag: "Trekking",
     title: "Himachal on foot",
     text: "I love being up in the mountains and have trekked across Himachal.",
@@ -39,16 +43,18 @@ export const tiles: Tile[] = [
   },
   {
     id: "coco",
+    ratio: "1 / 1",
     tag: "Dog lover",
     title: "Coco",
     text: "We adopted Coco when she was two months old. She is the softest, floofiest reason our home feels like home, and we are so grateful she is ours.",
-    media: { kind: "video", src: "/closed/coco.mp4" },
+    media: { kind: "video", src: "/closed/coco.mp4", poster: "/closed/coco-poster.webp" },
   },
   {
     id: "cocktails",
+    ratio: "4 / 5",
     tag: "Cocktails",
     title: "Shaken, not rushed",
     text: "I love a good cocktail. Becoming a part-time bartender is still a dream.",
-    media: { kind: "flip", srcs: ["/closed/cocktail-1.webp", "/closed/cocktail-2.webp"] },
+    media: { kind: "carousel", srcs: ["/closed/cocktail-1.webp", "/closed/cocktail-2.webp"] },
   },
 ];
