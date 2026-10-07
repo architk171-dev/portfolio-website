@@ -84,7 +84,7 @@ export function setCharTimeline(
     .fromTo(
       ".character-model",
       { x: "26%", scale: 0.7, transformOrigin: "50% 78%" },
-      { x: "-25%", scale: 1, duration: 1 },
+      { x: "-15%", scale: 1, duration: 1 },
       0
     )
     .fromTo(".landing-section", { "--hero-fade": 1 }, { "--hero-fade": 0, duration: 0.12 }, 0)
@@ -99,7 +99,7 @@ export function setCharTimeline(
     .fromTo(
       ".character-model",
       { pointerEvents: "inherit" },
-      { pointerEvents: "none", x: "-12%", delay: 2, duration: 5 },
+      { pointerEvents: "none", x: "-6%", delay: 2, duration: 5 },
       0
     )
     .to(character.rotation, { y: 0.92, x: 0.12, delay: 3, duration: 3 }, 0)
