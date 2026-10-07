@@ -32,7 +32,7 @@ export const tiles: Tile[] = [
     ratio: "4 / 5",
     tag: "Street wear",
     title: "Sneakers and hype",
-    text: "Deep into street wear and hype culture. I interned at Crepdog Crew before their stores opened, built a good collection of shoes and sourced sneakers for a couple of celebrities.",
+    text: "Deep into street wear and hype culture. I interned at CrepDogCrew before their stores opened, built a good collection of shoes and sourced sneakers for a couple of celebrities.",
     media: { kind: "video", src: "/closed/sneakers.mp4", poster: "/closed/sneakers-poster.webp" },
   },
   {

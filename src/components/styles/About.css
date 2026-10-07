@@ -51,3 +51,6 @@
     backdrop-filter: blur(6px);
   }
 }
+
+.about-statement { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.5rem); line-height: 1.04; letter-spacing: -0.015em; }
+.about-statement em { font-style: italic; }

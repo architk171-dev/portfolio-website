@@ -19,7 +19,7 @@ const About = () => {
         </h2>
         <p className="about-body">
           As an engineering student I interned across very different
-          functions: marketing at Fansee, operations at Cpredogcrew and machine
+          functions: marketing at Fansee, operations at CrepDogCrew and machine
           learning at Coforge.
         </p>
         <p className="about-body">

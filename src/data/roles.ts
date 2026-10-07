@@ -176,14 +176,14 @@ export const roles: Role[] = [
     company: "Early internships",
     role: "Marketing · Operations · ML",
     period: "Before product",
-    context: "Fansee · Crepdog Crew · Coforge",
+    context: "Fansee · CrepDogCrew · Coforge",
     scope: "Three internships across very different functions before choosing product.",
     groups: [
       {
         title: "What each one taught me",
         points: [
           "Fansee, Marketing Intern: customer segmentation and pricing strategy.",
-          "Crepdog Crew, Operations Intern: inventory management and competitor analysis at a D2C apparel company.",
+          "CrepDogCrew, Operations Intern: inventory management and competitor analysis at a D2C apparel company.",
           "Coforge, Machine Learning Intern: built ML models and a resume parser with 90% accuracy.",
         ],
       },

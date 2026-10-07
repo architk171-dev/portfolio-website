@@ -533,3 +533,67 @@
     line-height: 0.95;
   }
 }
+
+/* Align with the site's type and card system, tighten vertical space */
+.whatIDO { height: auto; min-height: 78vh; }
+.what-box h2.title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 2rem + 4vw, 5.5rem);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 0;
+}
+.what-box h2.title em { font-style: italic; color: var(--accent); }
+.what-border1, .what-border2, .what-corner, .what-arrow { display: none; }
+.what-content::before, .what-content::after { display: none; }
+.what-content {
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(30, 24, 38, 0.95), rgba(18, 14, 23, 0.95));
+}
+.what-content + .what-content { margin-top: 14px; }
+.what-content h3 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.6rem + 1vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  color: var(--text);
+}
+.what-content h4 {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 1;
+}
+.what-content p {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+.what-content-in h5 {
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 1;
+  color: var(--text-subtle);
+}
+.what-tags {
+  padding: 5px 12px;
+  font-size: var(--fs-meta);
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border-strong);
+}
+@media (min-width: 1025px) {
+  .about-section { min-height: 72vh; }
+}

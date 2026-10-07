@@ -47,10 +47,7 @@ const WhatIDo = () => {
     <div className="whatIDO">
       <div className="what-box">
         <h2 className="title">
-          W<span className="hat-h2">HAT</span>
-          <div>
-            I<span className="do-h2"> DO</span>
-          </div>
+          What I <em>do.</em>
         </h2>
       </div>
       <div className="what-box">
@@ -73,7 +70,7 @@ const WhatIDo = () => {
               <h3>PRODUCT</h3>
               <h4>Strategy & Execution</h4>
               <p>
-                End-to-end product ownership from discovery to GTM — roadmapping,
+                End-to-end product ownership from discovery to GTM: roadmapping,
                 PRD writing, user research, A/B testing, and cross-functional
                 stakeholder management.
               </p>
