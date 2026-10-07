@@ -42,11 +42,12 @@ const Count = ({ value, prefix = "", suffix = "", run }: { value: number; prefix
 };
 
 const Phases = ({ videos }: { videos: NonNullable<DropJourney["videos"]> }) => {
-  const [v, setV] = useState(0);
+  const [v, setV] = useState(Math.min(1, videos.length - 1));
   const cur = videos[v];
   return (
-    <div>
+    <div className="ds-col-media">
       <h3 className="ds-h3">The build, phase by phase</h3>
+      <video key={cur.src} className="ds-video" src={`${cur.src}#t=0.5`} controls playsInline preload="metadata" aria-label={cur.title} />
       <div className="ds-phases" role="tablist" aria-label="Phases">
         {videos.map((x, n) => (
           <button key={x.src} type="button" role="tab" aria-selected={n === v} className={n === v ? "is-active" : undefined} onClick={() => setV(n)}>
@@ -54,7 +55,6 @@ const Phases = ({ videos }: { videos: NonNullable<DropJourney["videos"]> }) => {
           </button>
         ))}
       </div>
-      <video key={cur.src} className="ds-video" src={cur.src} controls playsInline preload="metadata" aria-label={cur.title} />
       {cur.caption && <p className="ds-cap">{cur.caption}</p>}
     </div>
   );
@@ -243,14 +243,16 @@ const Journey = ({ d }: { d: DropJourney }) => {
         <div className="ds-block ds-media" data-reveal>
           {d.videos && d.videos.length > 0 && <Phases videos={d.videos} />}
           {d.products && d.products.length > 0 && (
-            <div>
+            <div className="ds-col-media">
               <h3 className="ds-h3">Hero products</h3>
               <ul className="ds-products">
                 {d.products.map((p) => (
                   <li key={p.name}>
                     {p.image && <img src={p.image} alt={p.name} loading="lazy" />}
-                    <strong>{p.name}</strong>
-                    <span>{p.note}</span>
+                    <div className="ds-prod-text">
+                      <strong>{p.name}</strong>
+                      <span>{p.note}</span>
+                    </div>
                   </li>
                 ))}
               </ul>
