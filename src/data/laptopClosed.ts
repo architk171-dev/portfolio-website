@@ -3,7 +3,7 @@ export const spotifyUrl = "https://open.spotify.com/track/6XQHlsNu6so4PdglFkJQRJ
 // YouTube takes priority over Spotify when set. Add "?start=SECONDS" via youtubeStart.
 export const youtubeUrl = "https://www.youtube.com/watch?v=cZAw8qxn0ZE";
 export const youtubeStart = 0;
-export const spotifyNote = "";
+export const spotifyNote = "This song reminds me where I am headed, and not to stop, on my goals or in life.";
 
 export type Tile = {
   id: string;

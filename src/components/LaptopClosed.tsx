@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdPause, MdPlayArrow } from "react-icons/md";
 import { Tile, spotifyNote, spotifyUrl, tiles, youtubeStart, youtubeUrl } from "../data/laptopClosed";
 import "./styles/LaptopClosed.css";
@@ -92,6 +92,58 @@ const embedUrl = (u: string) => {
   }
 };
 
+const YtEmbed = ({ id, start }: { id: string; start: number }) => {
+  const ref = useRef<HTMLIFrameElement>(null);
+  const state = useRef(-1);
+  const cmd = (func: string) =>
+    ref.current?.contentWindow?.postMessage(JSON.stringify({ event: "command", func, args: [] }), "*");
+
+  useEffect(() => {
+    const onMsg = (e: MessageEvent) => {
+      if (e.source !== ref.current?.contentWindow || typeof e.data !== "string") return;
+      try {
+        const d = JSON.parse(e.data);
+        if (d.event === "infoDelivery" && d.info && typeof d.info.playerState === "number") state.current = d.info.playerState;
+      } catch {
+        /* ignore */
+      }
+    };
+    window.addEventListener("message", onMsg);
+    return () => window.removeEventListener("message", onMsg);
+  }, []);
+
+  const enter = () => {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    cmd("unMute");
+    cmd("playVideo");
+    // Browsers may block sound before a click; fall back to muted playback.
+    window.setTimeout(() => {
+      if (state.current !== 1 && state.current !== 3) {
+        cmd("mute");
+        cmd("playVideo");
+      }
+    }, 900);
+  };
+  const leave = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches && cmd("pauseVideo");
+
+  const listen = () => ref.current?.contentWindow?.postMessage(JSON.stringify({ event: "listening", id: 1 }), "*");
+
+  return (
+    <div className="lc-yt" onMouseEnter={enter} onMouseLeave={leave}>
+      <iframe
+        ref={ref}
+        title="Song on YouTube"
+        src={`https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1&enablejsapi=1&playsinline=1${start ? `&start=${start}` : ""}`}
+        style={{ border: 0 }}
+        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allowFullScreen
+        loading="lazy"
+        onLoad={listen}
+      />
+    </div>
+  );
+};
+
 const youtubeId = (u: string) => {
   try {
     const x = new URL(u);
@@ -127,14 +179,7 @@ const LaptopClosed = () => {
               </div>
               <div className="lc-embed">
                 {yt ? (
-                  <iframe
-                    title="Song on YouTube"
-                    src={`https://www.youtube-nocookie.com/embed/${yt}?rel=0&modestbranding=1${youtubeStart ? `&start=${youtubeStart}` : ""}`}
-                    style={{ border: 0 }}
-                    allow="encrypted-media; picture-in-picture; fullscreen"
-                    allowFullScreen
-                    loading="lazy"
-                  />
+                  <YtEmbed id={yt} start={youtubeStart} />
                 ) : (
                   <iframe
                     title="Song on Spotify"
