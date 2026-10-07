@@ -34,23 +34,3 @@
   margin-top: 8px;
 }
 
-@media (min-width: 1025px) {
-  .about-section {
-    min-height: var(--vh);
-    align-items: center;
-    justify-content: flex-end;
-    padding-block: 0;
-    box-sizing: border-box;
-  }
-  .about-me {
-    width: 46%;
-    padding: 36px;
-    border-radius: var(--radius);
-    background: rgba(11, 8, 12, 0.72);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-  }
-}
-
-.about-statement { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.5rem); line-height: 1.04; letter-spacing: -0.015em; }
-.about-statement em { font-style: italic; }

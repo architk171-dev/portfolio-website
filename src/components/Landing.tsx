@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { useRef } from "react";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { MdArrowForward, MdOutlineEmail } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
@@ -6,9 +6,20 @@ import { RESUME_URL } from "./Navbar";
 import { EMAIL, LINKEDIN_URL } from "./SocialIcons";
 import "./styles/Landing.css";
 
-const Landing = ({ children }: PropsWithChildren) => {
+const Landing = () => {
+  const portrait = useRef<HTMLDivElement>(null);
+  const onMove = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = portrait.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+    const y = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+    el.style.setProperty("--px", String(Math.max(-1, Math.min(1, x * 2.2))));
+    el.style.setProperty("--py", String(Math.max(-1, Math.min(1, y * 2.2))));
+  };
   return (
-    <section className="landing-section" id="home" aria-labelledby="hero-name">
+    <section className="landing-section" id="home" aria-labelledby="hero-name" onPointerMove={onMove}>
       <div className="landing-container" id="landingDiv">
         <div className="hero">
           <p className="hero-hello">Hi, I'm</p>
@@ -48,8 +59,10 @@ const Landing = ({ children }: PropsWithChildren) => {
             <span>Freecharge</span>
           </p>
         </div>
+        <div className="hero-portrait" ref={portrait}>
+          <img src="/images/archit-pixar.webp" alt="Pixar-style portrait of Archit Kumar" width="1100" height="1143" decoding="async" />
+        </div>
       </div>
-      {children}
     </section>
   );
 };

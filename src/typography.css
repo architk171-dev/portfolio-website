@@ -8,13 +8,13 @@ html body .pc-title,
 html body .pc-h2,
 html body .pc-headline,
 html body .pc-next,
-html body .what-box h2.title,
+html body .what-intro .title,
 html body .how-card h3,
 html body .tl-company,
 html body .ds-panel h3,
 html body .ds-l-panel h3,
 html body .lc-body h3,
-html body .what-content h3,
+html body .what-card h3,
 html body .edu-card h4 {
   font-family: var(--font-display);
   font-weight: 400;
@@ -27,7 +27,7 @@ html body .pc-title em,
 html body .pc-h2 em,
 html body .pc-headline em,
 html body .pc-next em,
-html body .what-box h2.title em {
+html body .what-intro .title em {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
