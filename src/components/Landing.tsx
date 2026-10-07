@@ -25,26 +25,29 @@ const useDust = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
     let dots: P[] = [];
 
     const seed = () => {
-      const count = Math.round((w * h) / 26000);
-      dots = Array.from({ length: Math.min(90, count) }, () => ({
+      const count = Math.round((w * h) / 16000);
+      dots = Array.from({ length: Math.min(120, Math.max(40, count)) }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
-        r: Math.random() * 1.6 + 0.4,
-        s: Math.random() * 0.25 + 0.05,
-        a: Math.random() * 0.5 + 0.2,
+        r: Math.random() * 1.8 + 0.6,
+        s: Math.random() * 0.28 + 0.06,
+        a: Math.random() * 0.5 + 0.35,
         tw: Math.random() * Math.PI * 2,
       }));
     };
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
+      if (rect.width < 2 || rect.height < 2) return;
       w = rect.width;
       h = rect.height;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       seed();
     };
     resize();
+    const ro = new ResizeObserver(() => resize());
+    ro.observe(canvas);
 
     const tick = () => {
       ctx.clearRect(0, 0, w, h);
@@ -68,6 +71,7 @@ const useDust = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      ro.disconnect();
     };
   }, [canvasRef]);
 };
