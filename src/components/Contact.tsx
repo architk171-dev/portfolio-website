@@ -1,60 +1,45 @@
-import { FaLinkedinIn } from "react-icons/fa6";
-import { MdOutlineEmail, MdOutlinePhone } from "react-icons/md";
-import { TbFileText } from "react-icons/tb";
+import { MdArrowForward } from "react-icons/md";
 import { RESUME_URL } from "./Navbar";
 import { EMAIL, LINKEDIN_URL } from "./SocialIcons";
 import "./styles/Contact.css";
 
+const PHONE = "+91 81303 70300";
+
+const links = [
+  { label: "LinkedIn", href: LINKEDIN_URL, external: true },
+  { label: "Email", href: `mailto:${EMAIL}` },
+  { label: "Phone", href: "tel:+918130370300" },
+  { label: "Résumé", href: RESUME_URL, external: true },
+];
+
 const Contact = () => {
   return (
     <footer className="section contact-section" id="contact" aria-labelledby="contact-title">
-      <div className="contact-card card" data-reveal>
-        <div className="contact-copy">
-          <p className="eyebrow">Contact</p>
-          <h2 className="section-title" id="contact-title">
-            Hiring for product? <em>Let's talk.</em>
-          </h2>
-          <p className="section-intro">
-            The fastest way to reach me is email or LinkedIn. My resume has the full detail.
-          </p>
+      <div className="cta-card" data-reveal>
+        <h2 className="cta-title" id="contact-title">
+          Let's build something <em>people love.</em>
+        </h2>
+        <div className="cta-actions">
+          <a className="cta-btn cta-primary" href={`mailto:${EMAIL}`}>
+            Get in touch <MdArrowForward aria-hidden="true" />
+          </a>
+          <a className="cta-btn" href="#work">
+            See my work
+          </a>
         </div>
-        <ul className="contact-links">
-          <li>
-            <a href={`mailto:${EMAIL}`} className="contact-link">
-              <MdOutlineEmail aria-hidden="true" />
-              <span>
-                <span className="contact-link-label">Email</span>
-                <span className="contact-link-value">{EMAIL}</span>
-              </span>
-            </a>
-          </li>
-          <li>
-            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="contact-link">
-              <FaLinkedinIn aria-hidden="true" />
-              <span>
-                <span className="contact-link-label">LinkedIn</span>
-                <span className="contact-link-value">in/archit-kumar1717</span>
-              </span>
-            </a>
-          </li>
-          <li>
-            <a href="tel:+918130370300" className="contact-link">
-              <MdOutlinePhone aria-hidden="true" />
-              <span>
-                <span className="contact-link-label">Phone</span>
-                <span className="contact-link-value">+91 81303 70300</span>
-              </span>
-            </a>
-          </li>
-          <li>
-            <a href={RESUME_URL} target="_blank" rel="noopener" className="contact-link">
-              <TbFileText aria-hidden="true" />
-              <span>
-                <span className="contact-link-label">Resume</span>
-                <span className="contact-link-value">Download PDF</span>
-              </span>
-            </a>
-          </li>
+        <p className="cta-details">
+          <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+          <span aria-hidden="true">·</span>
+          <a href="tel:+918130370300">{PHONE}</a>
+        </p>
+        <ul className="cta-links">
+          {links.map((l) => (
+            <li key={l.label}>
+              <a href={l.href} {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+                {l.label} <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
       <p className="contact-foot">© 2026 Archit Kumar</p>
