@@ -60,10 +60,22 @@ const Journey = ({ d }: { d: DropJourney }) => {
   }, []);
 
   const totals = d.months.reduce(
-    (a, x) => ({ revenue: a.revenue + x.revenue, orders: a.orders + x.orders, adSpend: a.adSpend + x.adSpend, profit: a.profit + x.profit }),
-    { revenue: 0, orders: 0, adSpend: 0, profit: 0 }
+    (a, x) => ({
+      revenue: a.revenue + x.revenue,
+      orders: a.orders + (x.orders ?? 0),
+      cogs: a.cogs + (x.cogs ?? 0),
+      adSpend: a.adSpend + x.adSpend,
+      profit: a.profit + x.profit,
+    }),
+    { revenue: 0, orders: 0, cogs: 0, adSpend: 0, profit: 0 }
   );
-  const roas = totals.adSpend > 0 ? totals.revenue / totals.adSpend : null;
+  const hasOrders = d.months.every((x) => x.orders !== undefined);
+  const hasCogs = d.months.every((x) => x.cogs !== undefined);
+  const roas = d.showRoas && totals.adSpend > 0 ? totals.revenue / totals.adSpend : null;
+  const gm = hasCogs && totals.revenue > 0 ? ((totals.revenue - totals.cogs) / totals.revenue) * 100 : null;
+  const margin = totals.revenue > 0 ? (totals.profit / totals.revenue) * 100 : null;
+  const noun = d.periodNoun ?? "Month";
+  const profitLabel = d.profitLabel ?? "Profit";
   const maxVal = Math.max(...d.months.flatMap((x) => [x.revenue, x.adSpend]), 1);
   const bestIdx = d.months.reduce((b, x, n) => (x.profit > d.months[b].profit ? n : b), 0);
 
@@ -82,8 +94,10 @@ const Journey = ({ d }: { d: DropJourney }) => {
   };
 
   const cur = d.currency;
-  const mRoas = m.adSpend > 0 ? m.revenue / m.adSpend : null;
-  const mAov = m.orders > 0 ? m.revenue / m.orders : null;
+  const mRoas = d.showRoas && m.adSpend > 0 ? m.revenue / m.adSpend : null;
+  const mAov = m.orders ? m.revenue / m.orders : null;
+  const mGm = m.cogs !== undefined && m.revenue > 0 ? ((m.revenue - m.cogs) / m.revenue) * 100 : null;
+  const mMargin = m.revenue > 0 ? (m.profit / m.revenue) * 100 : null;
 
   return (
     <div ref={rootRef}>
@@ -108,19 +122,28 @@ const Journey = ({ d }: { d: DropJourney }) => {
           <span className="ds-t-label">Revenue</span>
           <span className="metric-value ds-t-value"><Count value={totals.revenue} prefix={cur} run={inView} /></span>
         </li>
-        <li>
-          <span className="ds-t-label">Orders</span>
-          <span className="metric-value ds-t-value"><Count value={totals.orders} run={inView} /></span>
-        </li>
+        {hasOrders && (
+          <li>
+            <span className="ds-t-label">Orders</span>
+            <span className="metric-value ds-t-value"><Count value={totals.orders} run={inView} /></span>
+          </li>
+        )}
+        {gm !== null && (
+          <li>
+            <span className="ds-t-label">Gross margin</span>
+            <span className="metric-value ds-t-value">{gm.toFixed(1)}%</span>
+          </li>
+        )}
         <li>
           <span className="ds-t-label">Ad spend</span>
           <span className="metric-value ds-t-value"><Count value={totals.adSpend} prefix={cur} run={inView} /></span>
         </li>
         <li>
-          <span className="ds-t-label">Profit</span>
+          <span className="ds-t-label">{profitLabel}</span>
           <span className={`metric-value ds-t-value${totals.profit < 0 ? " is-neg" : ""}`}>
             <Count value={totals.profit} prefix={cur} run={inView} />
           </span>
+          {margin !== null && <span className="ds-t-sub">{margin.toFixed(1)}% of revenue</span>}
         </li>
         {roas !== null && (
           <li>
@@ -148,7 +171,7 @@ const Journey = ({ d }: { d: DropJourney }) => {
                 tabIndex={n === i ? 0 : -1}
                 className={`ds-col${n === i ? " is-active" : ""}`}
                 onClick={() => setI(n)}
-                aria-label={`${x.label}: revenue ${cur}${fmt(x.revenue)}, ad spend ${cur}${fmt(x.adSpend)}`}
+                aria-label={`${noun} ${x.label}: revenue ${cur}${fmt(x.revenue)}, ad spend ${cur}${fmt(x.adSpend)}`}
               >
                 <span className="ds-bars">
                   <span className="ds-bar ds-bar-rev" style={{ height: `${(x.revenue / maxVal) * 100}%` }} />
@@ -164,19 +187,23 @@ const Journey = ({ d }: { d: DropJourney }) => {
 
         <div className="ds-panel" id="ds-panel" role="tabpanel" aria-labelledby={`ds-tab-${i}`} key={i}>
           <header>
-            <h3>{m.label}</h3>
+            <h3>{noun} {m.label.replace(/^\D+/, "") || m.label}</h3>
+            {m.dates && <span className="ds-dates">{m.dates}</span>}
             {m.tag && <span className="ds-tag">{m.tag}</span>}
           </header>
           <dl className="ds-kpis">
             <div><dt>Revenue</dt><dd className="metric-value">{cur}{fmt(m.revenue)}</dd></div>
-            <div><dt>Orders</dt><dd className="metric-value">{fmt(m.orders)}</dd></div>
+            {m.orders !== undefined && <div><dt>Orders</dt><dd className="metric-value">{fmt(m.orders)}</dd></div>}
+            {m.cogs !== undefined && <div><dt>Cost of goods</dt><dd className="metric-value">{cur}{fmt(m.cogs)}</dd></div>}
+            {mGm !== null && <div><dt>Gross margin</dt><dd className="metric-value">{mGm.toFixed(1)}%</dd></div>}
             <div><dt>Ad spend</dt><dd className="metric-value">{cur}{fmt(m.adSpend)}</dd></div>
             <div>
-              <dt>Profit</dt>
+              <dt>{profitLabel}</dt>
               <dd className={`metric-value${m.profit < 0 ? " is-neg" : " is-pos"}`}>
                 {m.profit < 0 ? "-" : ""}{cur}{fmt(Math.abs(m.profit))}
               </dd>
             </div>
+            {mMargin !== null && <div><dt>Net margin</dt><dd className="metric-value">{mMargin.toFixed(1)}%</dd></div>}
             {mRoas !== null && <div><dt>ROAS</dt><dd className="metric-value">{mRoas.toFixed(1)}x</dd></div>}
             {mAov !== null && <div><dt>Avg order</dt><dd className="metric-value">{cur}{fmt(mAov)}</dd></div>}
           </dl>
@@ -195,10 +222,11 @@ const Journey = ({ d }: { d: DropJourney }) => {
 
       {d.products && d.products.length > 0 && (
         <div className="ds-block" data-reveal>
-          <h3 className="ds-h3">What I sold</h3>
+          <h3 className="ds-h3">Hero products</h3>
           <ul className="ds-products">
             {d.products.map((p) => (
               <li key={p.name}>
+                {p.image && <img src={p.image} alt={p.name} loading="lazy" />}
                 <strong>{p.name}</strong>
                 <span>{p.note}</span>
               </li>
@@ -207,17 +235,43 @@ const Journey = ({ d }: { d: DropJourney }) => {
         </div>
       )}
 
-      <div className="ds-block" data-reveal>
-        <h3 className="ds-h3">What it taught me</h3>
-        <ol className="ds-lessons">
-          {d.lessons.map((l, n) => (
-            <li key={l}>
-              <span aria-hidden="true">{String(n + 1).padStart(2, "0")}</span>
-              <p>{l}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
+      {d.video && (
+        <div className="ds-block" data-reveal>
+          <h3 className="ds-h3">{d.video.title}</h3>
+          <video className="ds-video" src={d.video.src} controls playsInline preload="metadata" aria-label={d.video.title} />
+          {d.video.caption && <p className="ds-cap">{d.video.caption}</p>}
+        </div>
+      )}
+
+      {d.books && (
+        <div className="ds-block" data-reveal>
+          <h3 className="ds-h3">From the books</h3>
+          <a className="ds-books" href={d.books.image} target="_blank" rel="noopener noreferrer">
+            <img src={d.books.image} alt="Weekly profit and loss sheet" loading="lazy" />
+          </a>
+          <p className="ds-cap">{d.books.caption}</p>
+        </div>
+      )}
+
+      {d.storeUrl && (
+        <p className="ds-visit" data-reveal>
+          <a href={d.storeUrl} target="_blank" rel="noopener noreferrer">Visit {d.storeName} <span aria-hidden="true">↗</span></a>
+        </p>
+      )}
+
+      {d.lessons.length > 0 && (
+        <div className="ds-block" data-reveal>
+          <h3 className="ds-h3">What it taught me</h3>
+          <ol className="ds-lessons">
+            {d.lessons.map((l, n) => (
+              <li key={l}>
+                <span aria-hidden="true">{String(n + 1).padStart(2, "0")}</span>
+                <p>{l}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
     </div>
   );
 };
