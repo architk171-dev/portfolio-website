@@ -34,7 +34,6 @@ export type DropJourney = {
     revenue: number;
     channels: { name: string; sessions: number; keyEvents: number; keyRate: number; revenue: number }[];
   };
-  books?: { image: string; caption: string };
   lessons: string[];
 };
 
@@ -85,7 +84,6 @@ export const dropshipping: DropJourney | null = {
       { name: "Organic search", sessions: 88, keyEvents: 0, keyRate: 0, revenue: 0 },
     ],
   },
-  books: { image: "/dropshipping/weekly-sales.webp", caption: "The weekly P&L sheet the numbers above come from." },
   lessons: [
     "Finding vendors is the real first product. Reliable suppliers are hard to find, so test a small order before putting ad money behind any item.",
     "Price is only one term. Lead time, minimum order and returns cover shape your margin too, so negotiate all of them.",

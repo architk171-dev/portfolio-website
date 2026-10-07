@@ -45,7 +45,7 @@ const Phases = ({ videos }: { videos: NonNullable<DropJourney["videos"]> }) => {
   const [v, setV] = useState(0);
   const cur = videos[v];
   return (
-    <div className="ds-block" data-reveal>
+    <div>
       <h3 className="ds-h3">The build, phase by phase</h3>
       <div className="ds-phases" role="tablist" aria-label="Phases">
         {videos.map((x, n) => (
@@ -239,18 +239,23 @@ const Journey = ({ d }: { d: DropJourney }) => {
         </div>
       </div>
 
-      {d.products && d.products.length > 0 && (
-        <div className="ds-block" data-reveal>
-          <h3 className="ds-h3">Hero products</h3>
-          <ul className="ds-products">
-            {d.products.map((p) => (
-              <li key={p.name}>
-                {p.image && <img src={p.image} alt={p.name} loading="lazy" />}
-                <strong>{p.name}</strong>
-                <span>{p.note}</span>
-              </li>
-            ))}
-          </ul>
+      {((d.videos && d.videos.length > 0) || (d.products && d.products.length > 0)) && (
+        <div className="ds-block ds-media" data-reveal>
+          {d.videos && d.videos.length > 0 && <Phases videos={d.videos} />}
+          {d.products && d.products.length > 0 && (
+            <div>
+              <h3 className="ds-h3">Hero products</h3>
+              <ul className="ds-products">
+                {d.products.map((p) => (
+                  <li key={p.name}>
+                    {p.image && <img src={p.image} alt={p.name} loading="lazy" />}
+                    <strong>{p.name}</strong>
+                    <span>{p.note}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 
@@ -280,18 +285,6 @@ const Journey = ({ d }: { d: DropJourney }) => {
               </div>
             ))}
           </div>
-        </div>
-      )}
-
-      {d.videos && d.videos.length > 0 && <Phases videos={d.videos} />}
-
-      {d.books && (
-        <div className="ds-block" data-reveal>
-          <h3 className="ds-h3">From the books</h3>
-          <a className="ds-books" href={d.books.image} target="_blank" rel="noopener noreferrer">
-            <img src={d.books.image} alt="Weekly profit and loss sheet" loading="lazy" />
-          </a>
-          <p className="ds-cap">{d.books.caption}</p>
         </div>
       )}
 
