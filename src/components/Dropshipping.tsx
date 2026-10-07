@@ -71,7 +71,19 @@ const Phases = ({ videos }: { videos: NonNullable<DropJourney["videos"]> }) => {
   return (
     <div className="ds-col-media">
       <h3 className="ds-h3">The build, phase by phase</h3>
-      <video key={cur.src} className="ds-video" src={`${cur.src}#t=0.5`} controls playsInline preload="metadata" aria-label={cur.title} />
+      <video
+        key={cur.src}
+        className="ds-video"
+        src={`${cur.src}#t=0.5`}
+        controls
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-label={cur.title}
+        onMouseEnter={(e) => window.matchMedia("(hover: hover) and (pointer: fine)").matches && e.currentTarget.play().catch(() => undefined)}
+        onMouseLeave={(e) => window.matchMedia("(hover: hover) and (pointer: fine)").matches && e.currentTarget.pause()}
+      />
       <div className="ds-phases" role="tablist" aria-label="Phases">
         {videos.map((x, n) => (
           <button key={x.src} type="button" role="tab" aria-selected={n === v} className={n === v ? "is-active" : undefined} onClick={() => setV(n)}>
