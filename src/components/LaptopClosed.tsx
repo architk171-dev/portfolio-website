@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { MdPause, MdPlayArrow } from "react-icons/md";
-import { Tile, spotifyNote, spotifyUrl, tiles } from "../data/laptopClosed";
+import { Tile, spotifyNote, spotifyUrl, tiles, youtubeStart, youtubeUrl } from "../data/laptopClosed";
 import "./styles/LaptopClosed.css";
 
 const finePointer = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -92,8 +92,19 @@ const embedUrl = (u: string) => {
   }
 };
 
+const youtubeId = (u: string) => {
+  try {
+    const x = new URL(u);
+    if (x.hostname === "youtu.be") return x.pathname.slice(1);
+    return x.searchParams.get("v");
+  } catch {
+    return null;
+  }
+};
+
 const LaptopClosed = () => {
-  const song = spotifyUrl ? embedUrl(spotifyUrl) : null;
+  const yt = youtubeUrl ? youtubeId(youtubeUrl) : null;
+  const song = !yt && spotifyUrl ? embedUrl(spotifyUrl) : null;
   const by = (...ids: string[]) => ids.map((id) => tiles.find((t) => t.id === id)!).filter(Boolean);
   return (
     <section className="section lc-section" id="off-the-clock" aria-labelledby="lc-title">
@@ -108,23 +119,35 @@ const LaptopClosed = () => {
         <div className="lc-col">{by("united", "cocktails").map((t) => <TileView key={t.id} t={t} />)}</div>
         <div className="lc-col">
           {by("trek").map((t) => <TileView key={t.id} t={t} />)}
-          {song && (
+          {(yt || song) && (
             <article className="lc-card lc-song" data-reveal>
               <div className="lc-body">
                 <span className="lc-tag">On repeat</span>
                 {spotifyNote && <p>{spotifyNote}</p>}
               </div>
-              <iframe
-                title="Song on Spotify"
-                src={song}
-                width="100%"
-                height="152"
-                style={{ border: 0 }}
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-              />
-              <a className="lc-open" href={spotifyUrl} target="_blank" rel="noopener noreferrer">
-                Open in Spotify <span aria-hidden="true">↗</span>
+              <div className="lc-embed">
+                {yt ? (
+                  <iframe
+                    title="Song on YouTube"
+                    src={`https://www.youtube-nocookie.com/embed/${yt}?rel=0&modestbranding=1${youtubeStart ? `&start=${youtubeStart}` : ""}`}
+                    style={{ border: 0 }}
+                    allow="encrypted-media; picture-in-picture; fullscreen"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                ) : (
+                  <iframe
+                    title="Song on Spotify"
+                    src={song!}
+                    height="152"
+                    style={{ border: 0 }}
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                  />
+                )}
+              </div>
+              <a className="lc-open" href={yt ? youtubeUrl : spotifyUrl} target="_blank" rel="noopener noreferrer">
+                {yt ? "Open on YouTube" : "Open in Spotify"} <span aria-hidden="true">↗</span>
               </a>
             </article>
           )}
