@@ -134,3 +134,7 @@
 }
 
 .lc-hover { position: absolute; inset: 0; }
+
+.lc-song iframe { color-scheme: normal; }
+.lc-open { margin: 0 clamp(18px, 2vw, 26px) clamp(18px, 2vw, 26px); font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); text-decoration: none; }
+.lc-open:hover { text-decoration: underline; }

@@ -86,7 +86,7 @@ const embedUrl = (u: string) => {
     const x = new URL(u);
     if (x.hostname !== "open.spotify.com") return null;
     const path = x.pathname.replace(/^\/intl-[a-z-]+/, "").replace(/^\/embed/, "");
-    return `https://open.spotify.com/embed${path}`;
+    return `https://open.spotify.com/embed${path}?utm_source=generator&theme=0`;
   } catch {
     return null;
   }
@@ -114,7 +114,18 @@ const LaptopClosed = () => {
                 <span className="lc-tag">On repeat</span>
                 {spotifyNote && <p>{spotifyNote}</p>}
               </div>
-              <iframe title="Song on Spotify" src={song} width="100%" height="152" frameBorder="0" allow="encrypted-media" loading="lazy" />
+              <iframe
+                title="Song on Spotify"
+                src={song}
+                width="100%"
+                height="152"
+                style={{ border: 0 }}
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+              />
+              <a className="lc-open" href={spotifyUrl} target="_blank" rel="noopener noreferrer">
+                Open in Spotify <span aria-hidden="true">↗</span>
+              </a>
             </article>
           )}
         </div>
