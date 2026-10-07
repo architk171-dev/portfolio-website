@@ -8,8 +8,11 @@ import "./styles/Landing.css";
 
 // Lightweight upward-drifting dust, like the illustrated portfolios. Canvas so
 // it stays cheap; gated on fine pointer + motion so phones and reduced-motion
-// users skip it.
-const useDust = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
+// users skip it. `boost` is a live multiplier (1 = idle) raised on scroll.
+const useDust = (
+  canvasRef: React.RefObject<HTMLCanvasElement>,
+  boost: React.MutableRefObject<number>
+) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -51,8 +54,9 @@ const useDust = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
 
     const tick = () => {
       ctx.clearRect(0, 0, w, h);
+      const mult = boost.current;
       for (const d of dots) {
-        d.y -= d.s;
+        d.y -= d.s * mult;
         d.tw += 0.02;
         if (d.y < -4) {
           d.y = h + 4;
@@ -79,7 +83,33 @@ const useDust = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
 const Landing = () => {
   const portrait = useRef<HTMLDivElement>(null);
   const dustRef = useRef<HTMLCanvasElement>(null);
-  useDust(dustRef);
+  const sectionRef = useRef<HTMLElement>(null);
+  const boost = useRef(1);
+  useDust(dustRef, boost);
+
+  // Scroll choreography for the hero: parallax (portrait lags the text),
+  // a fade-and-scale as the next section rises over it, and faster dust.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const vh = window.innerHeight || 1;
+      const p = Math.min(1, Math.max(0, window.scrollY / (vh * 0.85)));
+      section.style.setProperty("--hp", p.toFixed(4));
+      boost.current = 1 + p * 6;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   const onMove = (e: React.PointerEvent) => {
     if (e.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -93,7 +123,7 @@ const Landing = () => {
   };
 
   return (
-    <section className="landing-section" id="home" aria-labelledby="hero-name" onPointerMove={onMove}>
+    <section className="landing-section" id="home" aria-labelledby="hero-name" onPointerMove={onMove} ref={sectionRef}>
       <canvas className="hero-dust" ref={dustRef} aria-hidden="true" />
       <div className="landing-container" id="landingDiv">
         <div className="hero">

@@ -242,3 +242,22 @@
   .hero-arrow { display: none; }
   .hero-spark { left: 4%; top: -4%; }
 }
+
+/* ---------- Hero scroll choreography ---------- */
+.landing-section { --hp: 0; }
+.landing-container {
+  transform: translateY(calc(var(--hp) * -34px)) scale(calc(1 - var(--hp) * 0.04));
+  opacity: calc(1 - var(--hp) * 0.9);
+  transform-origin: 30% 40%;
+  will-change: transform, opacity;
+}
+.hero-dust { opacity: calc(1 - var(--hp) * var(--hp)); transition: opacity 0.2s linear; }
+@media (min-width: 1025px) {
+  /* Portrait is position:fixed; counter-translate so it lags behind the text */
+  .character-model, .hero-portrait { will-change: transform; }
+}
+.hero-portrait { transform: translateY(calc(var(--hp) * 46px)); }
+@media (prefers-reduced-motion: reduce) {
+  .landing-container { transform: none; opacity: 1; }
+  .hero-portrait { transform: none; }
+}

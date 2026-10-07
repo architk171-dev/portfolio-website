@@ -45,3 +45,5 @@
 
 .what-note { margin: 4px 0 0; max-width: 32ch; font-size: var(--fs-lead); line-height: 1.6; color: var(--text-muted); }
 @media (max-width: 900px) { .what-note { max-width: 52ch; } }
+
+.what-note em { font-family: var(--font-display); font-style: italic; font-size: 1.12em; color: var(--accent); }
