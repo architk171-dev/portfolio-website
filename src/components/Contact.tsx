@@ -23,7 +23,7 @@ const Contact = () => {
           <a className="cta-btn cta-primary" href={`mailto:${EMAIL}`}>
             Get in touch <MdArrowForward aria-hidden="true" />
           </a>
-          <a className="cta-btn" href="#work">
+          <a className="cta-btn" href="#experience">
             See my work
           </a>
         </div>
