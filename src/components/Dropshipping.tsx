@@ -41,6 +41,30 @@ const Count = ({ value, prefix = "", suffix = "", run }: { value: number; prefix
   );
 };
 
+const Learnings = ({ items }: { items: DropJourney["learnings"] }) => {
+  const [n, setN] = useState(0);
+  const cur = items[n];
+  return (
+    <div className="ds-learn" data-reveal>
+      <div className="ds-chips" role="tablist" aria-label="What I learned">
+        {items.map((x, i) => (
+          <button key={x.label} type="button" role="tab" id={`ds-l-${i}`} aria-selected={i === n} aria-controls="ds-l-panel" className={i === n ? "is-active" : undefined} onClick={() => setN(i)}>
+            {x.label}
+          </button>
+        ))}
+      </div>
+      <div className="ds-l-panel" id="ds-l-panel" role="tabpanel" aria-labelledby={`ds-l-${n}`} key={n}>
+        <h3>{cur.title}</h3>
+        <ul>
+          {cur.points.map((p) => (
+            <li key={p}>{p}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
 const Phases = ({ videos }: { videos: NonNullable<DropJourney["videos"]> }) => {
   const [v, setV] = useState(Math.min(1, videos.length - 1));
   const cur = videos[v];
@@ -121,20 +145,14 @@ const Journey = ({ d }: { d: DropJourney }) => {
   return (
     <div ref={rootRef}>
       <div className="section-head" data-reveal>
-        <p className="eyebrow">Side venture</p>
+        <p className="eyebrow">Started as a college project</p>
         <h2 className="section-title" id="drop-title">
           My dropshipping <em>journey.</em>
         </h2>
         <p className="section-intro">{d.summary}</p>
       </div>
 
-      <div className="ds-meta" data-reveal>
-        <span>{d.storeName}</span>
-        <span>{d.niche}</span>
-        <span>{d.platform}</span>
-        <span>{d.period}</span>
-        <span className="ds-status">{d.status}</span>
-      </div>
+      <Learnings items={d.learnings} />
 
       <ul className="ds-totals" aria-label="Totals" data-reveal>
         <li>
@@ -271,22 +289,6 @@ const Journey = ({ d }: { d: DropJourney }) => {
             <li><span className="ds-t-label">Key events</span><span className="metric-value ds-t-value">{fmt(d.traffic.keyEvents)}</span></li>
             <li><span className="ds-t-label">Tracked revenue</span><span className="metric-value ds-t-value">{cur}{fmt(d.traffic.revenue)}</span></li>
           </ul>
-          <div className="ds-channels">
-            {d.traffic.channels.map((c) => (
-              <div className="ds-ch" key={c.name}>
-                <strong>{c.name}</strong>
-                <div className="ds-ch-row">
-                  <span>Sessions {fmt(c.sessions)}</span>
-                  <i style={{ width: `${(c.sessions / d.traffic!.sessions) * 100}%` }} />
-                </div>
-                <div className="ds-ch-row ds-ch-rev">
-                  <span>Revenue {cur}{fmt(c.revenue)}</span>
-                  <i style={{ width: `${(c.revenue / d.traffic!.revenue) * 100}%` }} />
-                </div>
-                <small>{c.keyRate}% of sessions converted</small>
-              </div>
-            ))}
-          </div>
         </div>
       )}
 
@@ -296,19 +298,6 @@ const Journey = ({ d }: { d: DropJourney }) => {
         </p>
       )}
 
-      {d.lessons.length > 0 && (
-        <div className="ds-block" data-reveal>
-          <h3 className="ds-h3">What it taught me</h3>
-          <ol className="ds-lessons">
-            {d.lessons.map((l, n) => (
-              <li key={l}>
-                <span aria-hidden="true">{String(n + 1).padStart(2, "0")}</span>
-                <p>{l}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      )}
     </div>
   );
 };

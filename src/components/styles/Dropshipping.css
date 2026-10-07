@@ -393,3 +393,13 @@
 .ds-prod-text { display: grid; gap: 6px; padding: 16px 18px 18px; }
 @media (max-width: 900px) { .ds-media .ds-products img { aspect-ratio: 1; height: auto; } }
 @media (max-width: 520px) { .ds-media .ds-products { grid-template-columns: 1fr; } }
+
+.ds-learn { margin-bottom: 24px; padding: clamp(18px, 2.4vw, 28px); border: 1px solid var(--border); border-radius: 24px; background: linear-gradient(135deg, rgba(27,22,33,.95), rgba(20,16,24,.95)); }
+.ds-chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 20px; }
+.ds-chips button { min-height: 48px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--border-strong); background: transparent; color: var(--text-muted); font-family: var(--font-mono); font-size: var(--fs-small); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+.ds-chips button:hover { color: var(--text); border-color: var(--accent); }
+.ds-chips button.is-active { border-color: rgba(194,164,255,.55); background: var(--accent-soft); color: var(--text); }
+.ds-l-panel { display: grid; gap: 14px; animation: dsIn .3s ease; }
+.ds-l-panel h3 { margin: 0; font-size: clamp(1.3rem, 1.1rem + .8vw, 1.8rem); font-weight: 600; letter-spacing: -.02em; color: var(--text); }
+.ds-l-panel ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.ds-l-panel li { padding: 18px 20px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); font-size: var(--fs-body); line-height: 1.55; color: var(--text-muted); }

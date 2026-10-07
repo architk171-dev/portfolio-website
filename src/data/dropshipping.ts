@@ -34,7 +34,7 @@ export type DropJourney = {
     revenue: number;
     channels: { name: string; sessions: number; keyEvents: number; keyRate: number; revenue: number }[];
   };
-  lessons: string[];
+  learnings: { label: string; title: string; points: string[] }[];
 };
 
 // Source: the weekly P&L sheet and the one-page audit summary for Vibe Check.
@@ -48,7 +48,7 @@ export const dropshipping: DropJourney | null = {
   period: "28 Jul to 15 Sep 2026",
   status: "Audited, 8 trading weeks",
   summary:
-    "Eight weeks of the Vibe Check P&L, straight from the books. Pick a week to see what came in, what it cost and what was left.",
+    "It began as a college project. Over eight weeks it made ₹6.67L of profit on ₹29.47L of revenue, and taught me more than any class.",
   currency: "₹",
   profitLabel: "Profit (EBT)",
   periodNoun: "Week",
@@ -84,11 +84,33 @@ export const dropshipping: DropJourney | null = {
       { name: "Organic search", sessions: 88, keyEvents: 0, keyRate: 0, revenue: 0 },
     ],
   },
-  lessons: [
-    "Finding vendors is the real first product. Reliable suppliers are hard to find, so test a small order before putting ad money behind any item.",
-    "Price is only one term. Lead time, minimum order and returns cover shape your margin too, so negotiate all of them.",
-    "Margin is made when you buy. Cost of goods was 69% of revenue and marketing only 4%, and weekly gross margin swung between 11.6% and 45.5%.",
-    "Running Meta ads from scratch means reading beyond the ad dashboard. Paid social brought 92% of visits but converted at 1.6%, while direct visitors converted at 14.9%.",
-    "Setting up Shopify and running operations is the unglamorous half. Payments, shipping and order handling had to work before any ad was worth running.",
+  learnings: [
+    {
+      label: "Sourcing",
+      title: "Vendors and margin",
+      points: [
+        "Finding reliable vendors was the hardest part. Good suppliers are scarce, so test a small order before putting ad money behind any item.",
+        "Price is only one term. Lead time, minimum order and returns cover shape your margin too, so negotiate all of them.",
+        "Margin is made when you buy. Cost of goods was 69% of revenue and marketing only 4%, and weekly gross margin swung between 11.6% and 45.5%.",
+      ],
+    },
+    {
+      label: "Marketing",
+      title: "Meta ads from scratch",
+      points: [
+        "I set up and ran the Meta ads myself, all on Instagram, ₹1.18L in total.",
+        "Paid social brought 92% of visits but converted at 1.6%, while direct visitors converted at 14.9%. Reading results beyond the ad dashboard mattered.",
+        "Week 2 was the only loss: ₹28,993 of ads against ₹91,259 of revenue. Spend has to follow what is selling.",
+      ],
+    },
+    {
+      label: "Operations",
+      title: "Shopify and running it",
+      points: [
+        "I set up the Shopify store myself, from payments to shipping.",
+        "Handling orders, vendors and delivery day to day is the unglamorous half, and it had to work before any ad was worth running.",
+        "Eight trading weeks ended audited: ₹29.47L of revenue and ₹6.67L of profit.",
+      ],
+    },
   ],
 };
