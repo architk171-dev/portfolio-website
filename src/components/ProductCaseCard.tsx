@@ -23,8 +23,12 @@ const ProductCaseCard = ({ c, onOpen }: Props) => {
     <article className="pc-card" onMouseMove={tilt} onMouseLeave={untilt}>
       <span className="pc-num" aria-hidden="true">{c.number}</span>
       <span className="pc-year">{c.year}</span>
-      <div className="pc-visual">
-        <PhoneCollage {...c.collage} label={`${c.focus}: app screens`} />
+      <div className={`pc-visual${c.format && c.format !== "app" ? " pc-visual-cover" : ""}`}>
+        {c.format && c.format !== "app" ? (
+          <img className="pc-cover" src={c.cover} alt={c.coverAlt || ""} loading="lazy" />
+        ) : (
+          c.collage && <PhoneCollage {...c.collage} label={`${c.focus}: app screens`} />
+        )}
       </div>
       <div className="pc-body">
         <h3 className="pc-headline">

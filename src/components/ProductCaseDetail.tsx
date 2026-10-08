@@ -181,13 +181,50 @@ const Blocks = ({ blocks, c }: { blocks: Block[]; c: ProductCase }) => (
             </article>
           );
         case "screens":
-          return <ScreenWalk key={idx} caseId={c.id} screens={c.screens} />;
+          return c.screens ? <ScreenWalk key={idx} caseId={c.id} screens={c.screens} /> : null;
         default:
           return null;
       }
     })}
   </>
 );
+
+const SlideGallery = ({ slides }: { slides: NonNullable<ProductCase["slides"]> }) => {
+  const [i, setI] = useState(0);
+  const [zoom, setZoom] = useState(false);
+  const go = (n: number) => setI((n + slides.length) % slides.length);
+  const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (["ArrowRight", "ArrowDown"].includes(e.key)) go(i + 1);
+    else if (["ArrowUp", "ArrowLeft"].includes(e.key)) go(i - 1);
+    else return;
+    e.preventDefault();
+  };
+  return (
+    <div className="pc-deck" onKeyDown={onKey}>
+      <button type="button" className="pc-slide-stage" onClick={() => setZoom(true)} aria-label="Enlarge slide">
+        <img src={slides[i].src} alt={slides[i].label} />
+      </button>
+      <div className="pc-slide-nav">
+        <button type="button" onClick={() => go(i - 1)} aria-label="Previous slide"><MdArrowBack aria-hidden="true" /></button>
+        <span>{String(i + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
+        <button type="button" onClick={() => go(i + 1)} aria-label="Next slide"><MdArrowForward aria-hidden="true" /></button>
+      </div>
+      <div className="pc-thumbs" role="tablist" aria-label="Slides">
+        {slides.map((sl, n) => (
+          <button key={sl.src} type="button" role="tab" aria-selected={n === i} aria-label={`Slide ${n + 1}`} className={n === i ? "is-active" : undefined} onClick={() => setI(n)}>
+            <img src={sl.src} alt="" loading="lazy" />
+          </button>
+        ))}
+      </div>
+      {zoom && (
+        <div className="pc-lightbox" role="dialog" aria-modal="true" onClick={() => setZoom(false)}>
+          <img src={slides[i].src} alt={slides[i].label} />
+          <button type="button" className="pc-lightbox-x" onClick={() => setZoom(false)} aria-label="Close"><MdClose aria-hidden="true" /></button>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const ProductCaseDetail = ({ c, next, onClose, onOpen }: Props) => {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -275,13 +312,19 @@ const ProductCaseDetail = ({ c, next, onClose, onOpen }: Props) => {
             {c.headline} <em>{c.accent}</em>
           </h1>
           <p className="pc-lede">{c.summary}</p>
-          <a className="pc-figma" href={c.figmaUrl} target="_blank" rel="noopener noreferrer">
-            View the designs in Figma <MdOpenInNew aria-hidden="true" />
-          </a>
+          {c.figmaUrl && (
+            <a className="pc-figma" href={c.figmaUrl} target="_blank" rel="noopener noreferrer">
+              View the designs in Figma <MdOpenInNew aria-hidden="true" />
+            </a>
+          )}
         </header>
 
-        <div className="pc-hero-art">
-          <PhoneCollage {...c.collage} label={`${c.focus}: app screens`} />
+        <div className={`pc-hero-art${c.format && c.format !== "app" ? " pc-hero-cover" : ""}`}>
+          {c.format && c.format !== "app" ? (
+            <img className="pc-hero-img" src={c.cover} alt={c.coverAlt || ""} />
+          ) : (
+            c.collage && <PhoneCollage {...c.collage} label={`${c.focus}: app screens`} />
+          )}
         </div>
 
         <dl className="pc-brief">
@@ -299,6 +342,13 @@ const ProductCaseDetail = ({ c, next, onClose, onOpen }: Props) => {
             <Blocks blocks={s.blocks} c={c} />
           </section>
         ))}
+
+        {c.slides && c.slides.length > 0 && (
+          <section className="pc-sec" aria-label="Deck">
+            <h2 className="pc-h2">The <em>deck.</em></h2>
+            <SlideGallery slides={c.slides} />
+          </section>
+        )}
 
         <footer className="pc-foot">
           <p className="pc-foot-label">Next case study</p>

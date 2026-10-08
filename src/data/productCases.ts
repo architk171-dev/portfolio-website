@@ -30,10 +30,16 @@ export type ProductCase = {
   kind: string;
   period: string;
   focus: string;
-  figmaUrl: string;
+  figmaUrl?: string;
   tools: string[];
-  collage: { main: string; left: string; right: string };
-  screens: Screen[];
+  // App cases use a phone collage + screen walkthrough; deck/doc cases use a
+  // cover image and (for decks) a full slide gallery.
+  format?: "app" | "deck" | "doc";
+  cover?: string;
+  coverAlt?: string;
+  slides?: { src: string; label: string }[];
+  collage?: { main: string; left: string; right: string };
+  screens?: Screen[];
   sections: Section[];
 };
 
@@ -456,4 +462,5 @@ const raktaa: ProductCase = {
   ],
 };
 
-export const productCases: ProductCase[] = [creditlink, raktaa];
+import { district, gostops, luna } from "./moreCases";
+export const productCases: ProductCase[] = [creditlink, raktaa, district, gostops, luna];

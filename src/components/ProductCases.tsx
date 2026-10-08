@@ -47,7 +47,7 @@ const ProductCases = () => {
           Products I've designed, <em>end to end.</em>
         </h2>
         <p className="section-intro">
-          Two product case studies, from the problem and the flows to the screens, the architecture and the numbers.
+          Product cases and strategy decks, from the problem and the flows to the screens, the numbers and the launch plan.
         </p>
       </div>
 
