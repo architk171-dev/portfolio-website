@@ -13,7 +13,8 @@ export type Block =
       columns?: string[];
       rows?: string[][];
     }
-  | { t: "screens" };
+  | { t: "screens" }
+  | { t: "flow"; heading?: string; steps: string[] };
 
 export type Section = { id: string; title: string; accent: string; blocks: Block[] };
 
@@ -293,6 +294,7 @@ const raktaa: ProductCase = {
         { t: "p", text: "If you live in Dubai or London and want to start a ₹10,000 SIP in an Indian mutual fund, you'll probably spend more time on paperwork than on picking the fund. Passport copies, an overseas address proof that's \"less than three months old\", attestation by a notary or the embassy, a FATCA form, a cancelled NRE cheque, and then a wait of a week or more. In my earlier research on this space I estimated that 40 to 60% of NRIs give up somewhere along the way." },
         { t: "p", text: "I tore down four ways NRIs onboard today and redesigned the journey as Raktaa: one sitting of about 20 minutes on a phone, a video call instead of attested photocopies, and KYC validated within 2 working hours where the rules allow it." },
         { t: "callout", label: "The calls I'd defend hardest", text: "Ask for the country first and tailor everything after it. Catch a bad address proof on the phone instead of at the KRA a week later. Book the video KYC in the user's own time zone. And be honest with US and Canada residents up front about which funds they can actually buy." },
+        { t: "flow", heading: "The flow, end to end", steps: ["Residency", "Documents", "Scan passport", "Address proof", "Tax residency", "Link bank", "Video verify", "Review", "KYC status", "First SIP"] },
       ],
     },
     {

@@ -180,6 +180,20 @@ const Blocks = ({ blocks, c }: { blocks: Block[]; c: ProductCase }) => (
               )}
             </article>
           );
+        case "flow":
+          return (
+            <div className="pc-block" key={idx}>
+              {b.heading && <h3 className="pc-h3">{b.heading}</h3>}
+              <ol className="pc-flow">
+                {b.steps.map((st, n) => (
+                  <li key={st}>
+                    <span className="pc-flow-n">{n + 1}</span>
+                    <span className="pc-flow-label">{st}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          );
         case "screens":
           return c.screens ? <ScreenWalk key={idx} caseId={c.id} screens={c.screens} /> : null;
         default:
