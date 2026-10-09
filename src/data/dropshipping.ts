@@ -34,6 +34,17 @@ export type DropJourney = {
     revenue: number;
     channels: { name: string; sessions: number; keyEvents: number; keyRate: number; revenue: number }[];
   };
+  meta?: {
+    period: string;
+    spend: number;
+    impressions: number;
+    linkClicks: number;
+    purchases: number;
+    roas: number;
+    awareness: { spend: number; reach: number };
+    funnel: { label: string; value: number }[];
+    adsets: { name: string; product: string; spend: number; purchases: number; roas: number; ctr: number }[];
+  };
   learnings: { label: string; title: string; points: string[] }[];
 };
 
@@ -82,6 +93,34 @@ export const dropshipping: DropJourney | null = {
       { name: "Direct", sessions: 851, keyEvents: 188, keyRate: 14.92, revenue: 945604 },
       { name: "Organic social", sessions: 383, keyEvents: 8, keyRate: 2.09, revenue: 141643 },
       { name: "Organic search", sessions: 88, keyEvents: 0, keyRate: 0, revenue: 0 },
+    ],
+  },
+  meta: {
+    period: "Meta Ads Manager, ad sets, 23 Jun to 30 Sep 2026",
+    spend: 91511,
+    impressions: 1754546,
+    linkClicks: 19079,
+    purchases: 360,
+    roas: 13.5,
+    awareness: { spend: 1321, reach: 617156 },
+    funnel: [
+      { label: "Landing page views", value: 16599 },
+      { label: "Added to cart", value: 1299 },
+      { label: "Checkout started", value: 1065 },
+      { label: "Purchased", value: 360 },
+    ],
+    adsets: [
+      { name: "Keyboard, lookalike audience", product: "Keyboard", spend: 18289, purchases: 93, roas: 17.26, ctr: 1.85 },
+      { name: "Sales campaign, 20 Jul", product: "Mixed", spend: 20000, purchases: 88, roas: 16.82, ctr: 1.74 },
+      { name: "Projector, purchases", product: "Projector", spend: 18411, purchases: 85, roas: 16.69, ctr: 2.22 },
+      { name: "Keyboard, second ad set", product: "Keyboard", spend: 14395, purchases: 34, roas: 7.19, ctr: 1.87 },
+      { name: "Projector, new creative 30 Jul", product: "Projector", spend: 8067, purchases: 30, roas: 13.71, ctr: 2.01 },
+      { name: "Shot glasses", product: "Shot glasses", spend: 3206, purchases: 17, roas: 7.73, ctr: 2.04 },
+      { name: "Magnetic holder", product: "Magnetic holder", spend: 1468, purchases: 6, roas: 5.24, ctr: 1.67 },
+      { name: "Projector, first test 16 Jul", product: "Projector", spend: 2167, purchases: 3, roas: 5.54, ctr: 1.46 },
+      { name: "Keyboard, first test", product: "Keyboard", spend: 1201, purchases: 2, roas: 6.66, ctr: 2.11 },
+      { name: "Shoe dryer", product: "Shoe dryer", spend: 1079, purchases: 1, roas: 3.71, ctr: 2.35 },
+      { name: "Game console", product: "Game console", spend: 1414, purchases: 1, roas: 3.18, ctr: 1.85 },
     ],
   },
   learnings: [

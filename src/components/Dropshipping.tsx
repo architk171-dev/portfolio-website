@@ -96,6 +96,82 @@ const Phases = ({ videos }: { videos: NonNullable<DropJourney["videos"]> }) => {
   );
 };
 
+const MetaAds = ({ m, cur }: { m: NonNullable<DropJourney["meta"]>; cur: string }) => {
+  type Key = "purchases" | "roas" | "cpp";
+  const [sort, setSort] = useState<Key>("purchases");
+  const rows = m.adsets.map((a) => ({ ...a, cpp: a.purchases > 0 ? a.spend / a.purchases : Infinity }));
+  const sorted = [...rows].sort((a, b) => (sort === "cpp" ? a.cpp - b.cpp : b[sort] - a[sort]));
+  const maxPur = Math.max(...rows.map((r) => r.purchases));
+  const maxRoas = Math.max(...rows.map((r) => r.roas));
+  const maxFun = m.funnel[0].value;
+  const ctr = (m.linkClicks / m.impressions) * 100;
+  const cppAll = m.spend / m.purchases;
+  const sorts: { k: Key; label: string }[] = [
+    { k: "purchases", label: "Most purchases" },
+    { k: "roas", label: "Best return" },
+    { k: "cpp", label: "Cheapest purchase" },
+  ];
+  return (
+    <div className="ds-block ds-meta-block" data-reveal>
+      <h3 className="ds-h3">Meta ads, from the ad manager</h3>
+      <p className="ds-cap ds-cap-top">{m.period}</p>
+      <ul className="ds-totals ds-traffic-totals">
+        <li><span className="ds-t-label">Ad spend</span><span className="metric-value ds-t-value">{cur}{fmt(m.spend)}</span></li>
+        <li><span className="ds-t-label">Purchases</span><span className="metric-value ds-t-value">{fmt(m.purchases)}</span><span className="ds-t-sub">{cur}{fmt(cppAll)} each</span></li>
+        <li><span className="ds-t-label">Return on ad spend</span><span className="metric-value ds-t-value">{m.roas}x</span><span className="ds-t-sub">as reported by Meta</span></li>
+        <li><span className="ds-t-label">Link click rate</span><span className="metric-value ds-t-value">{ctr.toFixed(2)}%</span><span className="ds-t-sub">{fmt(m.linkClicks)} clicks</span></li>
+      </ul>
+
+      <div className="ds-meta-grid">
+        <div className="ds-meta-card">
+          <h4>Where shoppers dropped</h4>
+          <ol className="ds-funnel">
+            {m.funnel.map((f, i) => {
+              const prev = i > 0 ? m.funnel[i - 1].value : null;
+              return (
+                <li key={f.label}>
+                  <div className="ds-fun-top"><span>{f.label}</span><b>{fmt(f.value)}</b></div>
+                  <i style={{ width: `${Math.max(2, (f.value / maxFun) * 100)}%` }} />
+                  {prev && <small>{((f.value / prev) * 100).toFixed(0)}% of the step before</small>}
+                </li>
+              );
+            })}
+          </ol>
+          <p className="ds-note">Two of every three people who started checkout did not finish. That is where the next fix lives.</p>
+        </div>
+
+        <div className="ds-meta-card">
+          <h4>Ad sets, ranked</h4>
+          <div className="ds-sorts" role="tablist" aria-label="Sort ad sets">
+            {sorts.map((o) => (
+              <button key={o.k} type="button" role="tab" aria-selected={sort === o.k} className={sort === o.k ? "is-active" : undefined} onClick={() => setSort(o.k)}>
+                {o.label}
+              </button>
+            ))}
+          </div>
+          <ul className="ds-adsets">
+            {sorted.map((a) => (
+              <li key={a.name}>
+                <div className="ds-ad-top">
+                  <span className="ds-ad-name">{a.name}</span>
+                  <span className="ds-ad-stats">{a.purchases} purchases · {a.roas.toFixed(1)}x · {a.cpp === Infinity ? "n/a" : `${cur}${fmt(a.cpp)}`} each</span>
+                </div>
+                <div className="ds-ad-bars">
+                  <i className="ds-ad-pur" style={{ width: `${(a.purchases / maxPur) * 100}%` }} />
+                  <i className="ds-ad-roas" style={{ width: `${(a.roas / maxRoas) * 100}%` }} />
+                </div>
+              </li>
+            ))}
+          </ul>
+          <p className="ds-legend2"><span><i className="ds-ad-pur" /> Purchases</span><span><i className="ds-ad-roas" /> Return on spend</span></p>
+        </div>
+      </div>
+
+      <p className="ds-cap">An awareness ad set reached {fmt(m.awareness.reach)} people for {cur}{fmt(m.awareness.spend)}. The ad sets above are the ones built to sell.</p>
+    </div>
+  );
+};
+
 const Journey = ({ d }: { d: DropJourney }) => {
   const [i, setI] = useState(() => {
     const best = d.months.reduce((b, m, n) => (m.revenue > d.months[b].revenue ? n : b), 0);
@@ -290,6 +366,8 @@ const Journey = ({ d }: { d: DropJourney }) => {
           )}
         </div>
       )}
+
+      {d.meta && <MetaAds m={d.meta} cur={d.currency} />}
 
       {d.traffic && (
         <div className="ds-block" data-reveal>

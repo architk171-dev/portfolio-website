@@ -403,3 +403,30 @@
 .ds-l-panel h3 { margin: 0; font-size: clamp(1.3rem, 1.1rem + .8vw, 1.8rem); font-weight: 600; letter-spacing: -.02em; color: var(--text); }
 .ds-l-panel ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
 .ds-l-panel li { padding: 18px 20px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); font-size: var(--fs-body); line-height: 1.55; color: var(--text-muted); }
+
+/* ---------- Meta ads ---------- */
+.ds-meta-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr); gap: clamp(14px, 2vw, 22px); margin: 16px 0 14px; align-items: start; }
+.ds-meta-card { padding: clamp(18px, 2.2vw, 26px); border: 1px solid var(--border); border-radius: 22px; background: var(--surface); display: grid; gap: 14px; min-width: 0; }
+.ds-meta-card h4 { margin: 0; font-family: var(--font-mono); font-size: var(--fs-meta); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--text-subtle); }
+.ds-funnel { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.ds-funnel li { display: grid; gap: 6px; }
+.ds-fun-top { display: flex; justify-content: space-between; gap: 10px; font-size: var(--fs-small); color: var(--text-muted); }
+.ds-fun-top b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.ds-funnel i { display: block; height: 10px; border-radius: 6px; background: linear-gradient(90deg, #c4b5fd, #7c3aed); }
+.ds-funnel small { font-family: var(--font-mono); font-size: 11px; color: var(--text-subtle); }
+.ds-note { margin: 0; font-size: var(--fs-small); line-height: 1.55; color: var(--text-muted); }
+.ds-sorts { display: flex; flex-wrap: wrap; gap: 8px; }
+.ds-sorts button { padding: 7px 14px; border-radius: 999px; border: 1px solid var(--border-strong); background: transparent; color: var(--text-muted); font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+.ds-sorts button:hover { color: var(--text); border-color: var(--accent); }
+.ds-sorts button.is-active { border-color: rgba(194,164,255,.55); background: var(--accent-soft); color: var(--text); }
+.ds-adsets { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.ds-ad-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; margin-bottom: 6px; }
+.ds-ad-name { font-size: var(--fs-small); color: var(--text); }
+.ds-ad-stats { font-family: var(--font-mono); font-size: 11px; color: var(--text-subtle); }
+.ds-ad-bars { display: grid; gap: 4px; }
+.ds-ad-bars i { display: block; height: 6px; border-radius: 4px; transition: width .5s cubic-bezier(.2,.7,.2,1); }
+.ds-ad-pur { background: linear-gradient(90deg, #c4b5fd, #7c3aed); }
+.ds-ad-roas { background: rgba(255,255,255,.3); }
+.ds-legend2 { display: flex; gap: 18px; margin: 0; font-family: var(--font-mono); font-size: 11px; color: var(--text-subtle); }
+.ds-legend2 i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 3px; }
+@media (max-width: 900px) { .ds-meta-grid { grid-template-columns: 1fr; } }
